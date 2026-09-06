@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCD4760 · Test 3 Master Notes</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --navy:#1b2a4a; --navy-deep:#101a30; --teal:#0f7a72; --teal-light:#e6f4f2;
+  --amber:#c9822a; --amber-light:#fbeedd; --rose:#b3454a; --rose-light:#fbe9ea;
+  --plum:#5b4b8a; --plum-light:#eee9f7; --sage:#4a7c4e; --sage-light:#e9f3e9;
+  --ink:#1c2333; --ink-soft:#5b6478; --ink-faint:#8891a0; --line:#e3e7ee; --paper:#ffffff; --bg:#f4f6fb;
+  --radius:14px; --shadow:0 2px 10px rgba(20,30,60,0.06), 0 1px 2px rgba(20,30,60,0.08);
+  --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+html,body{margin:0;padding:0;}
+body{background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; line-height:1.55;}
+a{color:var(--navy);}
+.shell{display:flex; max-width:1360px; margin:0 auto; align-items:flex-start;}
+
+/* ---------- HEADER ---------- */
+header.top{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-deep) 100%);
+  color:#fff; padding:26px 32px; box-shadow:var(--shadow); position:sticky; top:0; z-index:50;
+}
+header.top .row{display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; max-width:1360px; margin:0 auto;}
+header.top .crumb{font-size:12px; letter-spacing:.14em; text-transform:uppercase; opacity:.72;}
+header.top h1{margin:2px 0 0; font-size:24px; font-family:var(--serif); font-weight:700;}
+header.top .searchwrap{position:relative; flex:1; max-width:360px; min-width:220px;}
+header.top input#search{
+  width:100%; padding:11px 14px 11px 38px; border-radius:999px; border:none; font-size:14px;
+  background:rgba(255,255,255,.14); color:#fff; outline:none;
+}
+header.top input#search::placeholder{color:rgba(255,255,255,.6);}
+header.top .searchwrap::before{content:"🔎"; position:absolute; left:13px; top:50%; transform:translateY(-50%); font-size:13px; opacity:.8;}
+.progress-pill{display:flex; align-items:center; gap:8px; font-size:12.5px; opacity:.9;}
+.progress-pill .bar{width:80px; height:6px; background:rgba(255,255,255,.2); border-radius:4px; overflow:hidden;}
+.progress-pill .bar span{display:block; height:100%; background:var(--teal); width:0%;}
+a.backlink{color:#fff; opacity:.75; font-size:12.5px; text-decoration:none;}
+a.backlink:hover{opacity:1;}
+
+/* ---------- SIDEBAR ---------- */
+nav.side{
+  width:250px; flex-shrink:0; position:sticky; top:88px; max-height:calc(100vh - 100px); overflow-y:auto;
+  padding:22px 14px 40px 22px;
+}
+nav.side .grp-label{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-weight:700; margin:18px 0 6px; padding-left:10px;}
+nav.side .grp-label:first-child{margin-top:0;}
+nav.side a{
+  display:flex; align-items:center; justify-content:space-between; gap:6px; padding:8px 10px; border-radius:8px;
+  color:var(--ink-soft); text-decoration:none; font-size:13.5px; font-weight:500; margin-bottom:2px;
+}
+nav.side a:hover{background:var(--paper); color:var(--navy);}
+nav.side a.active{background:var(--paper); color:var(--navy); font-weight:700; box-shadow:var(--shadow);}
+nav.side a .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0;}
+nav.side a .done-mark{font-size:11px; color:var(--teal); opacity:0;}
+nav.side a.reviewed .done-mark{opacity:1;}
+.dot.p-red{background:var(--rose);} .dot.p-amber{background:var(--amber);} .dot.p-yellow{background:#d8b74a;} .dot.p-green{background:var(--sage);}
+
+/* ---------- MAIN ---------- */
+main{flex:1; min-width:0; padding:26px 30px 120px 24px;}
+.section{margin-bottom:52px; scroll-margin-top:96px;}
+.section-head{display:flex; align-items:baseline; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:14px; border-bottom:2px solid var(--line); padding-bottom:10px;}
+.section-head h2{font-family:var(--serif); font-size:25px; color:var(--navy); margin:0;}
+.section-head .review-toggle{font-size:12px; color:var(--ink-soft); display:flex; align-items:center; gap:6px; cursor:pointer; user-select:none;}
+.section-head .review-toggle input{accent-color:var(--teal);}
+.section-intro{color:var(--ink-soft); font-size:14.5px; margin:-6px 0 18px;}
+
+.priority{display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px; text-transform:uppercase; letter-spacing:.03em; margin-left:8px; vertical-align:middle;}
+.priority.must{background:var(--rose-light); color:var(--rose);}
+.priority.high{background:var(--amber-light); color:var(--amber);}
+.priority.good{background:#fdf6de; color:#8a6d1a;}
+.priority.low{background:var(--sage-light); color:var(--sage);}
+
+.card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px 22px; margin-bottom:16px;}
+.card h3{font-family:var(--serif); color:var(--navy); font-size:19px; margin:0 0 4px;}
+.card .subtag{font-size:12px; color:var(--ink-faint); margin-bottom:14px;}
+
+.blk{margin:14px 0;}
+.blk .lbl{font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint); margin-bottom:6px; display:flex; align-items:center; gap:6px;}
+.blk.concept .lbl{color:var(--navy);}
+.blk-body{font-size:14.5px;}
+.blk-body ul{margin:4px 0; padding-left:20px;} .blk-body li{margin-bottom:4px;}
+
+.formula-block{background:var(--navy); color:#fff; border-radius:10px; padding:16px 20px; margin:8px 0; font-size:16px; overflow-x:auto;}
+.formula-block.light{background:#eef1f8; color:var(--navy);}
+
+.recognize{background:var(--plum-light); border-left:4px solid var(--plum); border-radius:0 10px 10px 0; padding:12px 16px;}
+.method ol{padding-left:20px; margin:4px 0;}
+.method li{margin-bottom:6px;}
+
+.example-box{border:1.5px dashed var(--teal); background:var(--teal-light); border-radius:10px; padding:14px 18px;}
+.example-box .step{margin-bottom:8px;}
+.example-box .step b{color:var(--teal);}
+
+.trap{background:var(--rose-light); border-left:4px solid var(--rose); border-radius:0 10px 10px 0; padding:12px 16px; font-size:14px;}
+.tip{background:var(--amber-light); border-left:4px solid var(--amber); border-radius:0 10px 10px 0; padding:12px 16px; font-size:14px;}
+.quickcheck{background:#f1f3f8; border-radius:10px; padding:12px 16px; font-size:14px;}
+.quickcheck summary{cursor:pointer; font-weight:700; color:var(--navy);}
+.quickcheck .ans{margin-top:8px; padding-top:8px; border-top:1px dashed var(--line);}
+
+table.ref{border-collapse:collapse; width:100%; font-size:13.5px; margin:6px 0;}
+table.ref th, table.ref td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top;}
+table.ref th{background:#eef1f8; color:var(--navy); font-weight:700;}
+table.ref tr:nth-child(even) td{background:#fafbfd;}
+
+.qp-card{border:1px solid var(--line); border-radius:var(--radius); background:var(--paper); box-shadow:var(--shadow); padding:18px 22px; margin-bottom:14px;}
+.qp-flow{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:10px 0 14px; font-size:13px;}
+.qp-flow .node{background:#eef1f8; color:var(--navy); padding:6px 12px; border-radius:8px; font-weight:600;}
+.qp-flow .arrow{color:var(--ink-faint);}
+.qp-card .sources{font-size:12px; color:var(--ink-faint);}
+
+.trap-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px;}
+.trap-card{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow);}
+.trap-card h4{margin:0 0 6px; color:var(--rose); font-size:14.5px;}
+
+.cheat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px;}
+.cheat-card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px 20px;}
+.cheat-card h4{margin:0 0 8px; color:var(--navy); font-family:var(--serif); font-size:16px; border-bottom:1px solid var(--line); padding-bottom:6px;}
+.cheat-card .f{font-size:13.5px; margin-bottom:7px; padding-bottom:7px; border-bottom:1px dashed var(--line);}
+.cheat-card .f:last-child{border-bottom:none;}
+
+.night{background:var(--navy-deep); color:#eef1f8; border-radius:18px; padding:30px 34px;}
+.night h2{color:#fff;}
+.night .cheat-card{background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.12);}
+.night .cheat-card h4{color:#fff; border-bottom-color:rgba(255,255,255,.15);}
+.night .cheat-card .f{color:#dfe4f0; border-bottom-color:rgba(255,255,255,.08);}
+
+.steps-attack{counter-reset:atk;}
+.attack-item{display:flex; gap:14px; margin-bottom:16px;}
+.attack-item .num{counter-increment:atk; background:var(--navy); color:#fff; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;}
+.attack-item .num::before{content: counter(atk);}
+.attack-item .txt h4{margin:0 0 4px; color:var(--navy);}
+.attack-item .txt{font-size:14.5px;}
+
+.hidden{display:none !important;}
+.no-results{text-align:center; color:var(--ink-faint); padding:60px 20px; font-size:14px;}
+
+.backtotop{position:fixed; bottom:24px; right:24px; background:var(--navy); color:#fff; border:none; width:44px; height:44px; border-radius:50%; font-size:18px; cursor:pointer; box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:.2s;}
+.backtotop.show{opacity:1; pointer-events:auto;}
+
+@media (max-width:920px){
+  nav.side{display:none;}
+  main{padding:20px 16px 100px;}
+  header.top .row{gap:10px;}
+  header.top .searchwrap{max-width:none; width:100%; order:3;}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="row">
+    <div>
+      <div class="crumb">MCD4760 · Foundations of Computing &nbsp;·&nbsp; <a class="backlink" href="index.html">← Study Hub</a></div>
+      <h1>Test 3 Master Notes</h1>
+    </div>
+    <div class="searchwrap"><input id="search" type="text" placeholder="Search notes, formulas, question types…"></div>
+    <div class="progress-pill">Reviewed <span id="progress-count">0/19</span><div class="bar"><span id="progress-bar"></span></div></div>
+  </div>
+</header>
+
+<div class="shell">
+<nav class="side" id="sidenav">
+  <div class="grp-label">Start here</div>
+  <a href="#cheatsheet" data-id="cheatsheet"><span><span class="dot p-red"></span> Master Cheat Sheet</span><span class="done-mark">✓</span></a>
+  <a href="#attack" data-id="attack"><span><span class="dot p-amber"></span> How to Attack the Exam</span><span class="done-mark">✓</span></a>
+  <a href="#qmap" data-id="qmap"><span><span class="dot p-red"></span> Question → Concept Map</span><span class="done-mark">✓</span></a>
+
+  <div class="grp-label">Topic notes</div>
+  <a href="#sets" data-id="sets"><span><span class="dot p-red"></span> Sets, Power Sets &amp; Operations</span><span class="done-mark">✓</span></a>
+  <a href="#functions" data-id="functions"><span><span class="dot p-amber"></span> Functions</span><span class="done-mark">✓</span></a>
+  <a href="#relations" data-id="relations"><span><span class="dot p-amber"></span> Relations</span><span class="done-mark">✓</span></a>
+  <a href="#proofs" data-id="proofs"><span><span class="dot p-amber"></span> Proof Techniques</span><span class="done-mark">✓</span></a>
+  <a href="#proplogic" data-id="proplogic"><span><span class="dot p-red"></span> Propositional Logic</span><span class="done-mark">✓</span></a>
+  <a href="#predlogic" data-id="predlogic"><span><span class="dot p-red"></span> Predicate Logic &amp; Quantifiers</span><span class="done-mark">✓</span></a>
+  <a href="#induction" data-id="induction"><span><span class="dot p-red"></span> Sequences &amp; Induction</span><span class="done-mark">✓</span></a>
+  <a href="#series" data-id="series"><span><span class="dot p-amber"></span> Series, Limits &amp; Big-O</span><span class="done-mark">✓</span></a>
+  <a href="#numtheory" data-id="numtheory"><span><span class="dot p-red"></span> Number Theory &amp; Cryptography</span><span class="done-mark">✓</span></a>
+  <a href="#combinatorics" data-id="combinatorics"><span><span class="dot p-red"></span> Counting &amp; Combinatorics</span><span class="done-mark">✓</span></a>
+  <a href="#probability" data-id="probability"><span><span class="dot p-red"></span> Probability &amp; Bayes</span><span class="done-mark">✓</span></a>
+  <a href="#randomvars" data-id="randomvars"><span><span class="dot p-green"></span> Random Variables &amp; Distributions</span><span class="done-mark">✓</span></a>
+  <a href="#graphs" data-id="graphs"><span><span class="dot p-green"></span> Graphs &amp; Trees</span><span class="done-mark">✓</span></a>
+
+  <div class="grp-label">Wrap-up</div>
+  <a href="#traps" data-id="traps"><span><span class="dot p-amber"></span> Common Traps</span><span class="done-mark">✓</span></a>
+  <a href="#formulasheet" data-id="formulasheet"><span><span class="dot p-amber"></span> Full Formula Sheet</span><span class="done-mark">✓</span></a>
+  <a href="#nightbefore" data-id="nightbefore"><span><span class="dot p-red"></span> Night-Before Page</span><span class="done-mark">✓</span></a>
+</nav>
+
+<main id="main">
+
+<!-- ================= CHEAT SHEET ================= -->
+<section class="section" id="cheatsheet">
+  <div class="section-head">
+    <h2>🧠 Master Cheat Sheet <span class="priority must">Must know</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="cheatsheet"> mark reviewed</label>
+  </div>
+  <p class="section-intro searchable">The highest-yield line from every topic. If you only have 15 minutes, read this section.</p>
+  <div class="cheat-grid">
+    <div class="cheat-card searchable">
+      <h4>Sets</h4>
+      <div class="f">\(|A\cup B|=|A|+|B|-|A\cap B|\)</div>
+      <div class="f">\(|A\cup B\cup C|=|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|\)</div>
+      <div class="f">\(|\mathcal P(A)| = 2^{|A|}\) &nbsp; \(|U'| = |U|-|A|\)</div>
+    </div>
+    <div class="cheat-card searchable">
+      <h4>Functions</h4>
+      <div class="f">Injective: no two inputs share an output.</div>
+      <div class="f">Surjective: every element of codomain is hit.</div>
+      <div class="f">Bijections \(A\to B\), \(|A|=|B|=n\): \(n!\) ways.</div>
+    </div>
+    <div class="cheat-card searchable">
+      <h4>Relations</h4>
+      <div class="f">Reflexive: \(\forall a, aRa\). Symmetric: \(aRb\Rightarrow bRa\).</div>
+      <div class="f">Transitive: \(aRb\wedge bRc \Rightarrow aRc\).</div>
+      <div class="f">Equivalence = reflexive + symmetric + transitive → partitions the set into classes.</div>
+    </div>
+    <div class="cheat-card searchable">
+      <h4>Propositional logic</h4>
+      <div class="f">\(P\Rightarrow Q \equiv \lnot P \vee Q\)</div>
+      <div class="f">De Morgan: \(\lnot(P\wedge Q)\equiv \lnot P\vee \lnot Q\)</div>
+      <div class="f">Every line of a proof needs a named law.</div>
+    </div>
+    <div class="cheat-card searchable">
+      <h4>Predicate logic</h4>
+      <div class="f">\(\lnot\forall x\,P(x)\equiv \exists x\,\lnot P(x)\)</div>
+      <div class="f">Order of mixed quantifiers matters: \(\forall x\exists y\) ≠ \(\exists y\forall x\).</div>
+    </div>
+    <div class="cheat-card searchable">
+      <h4>Induction</h4>
+      <div class="f">Base case → assume \(P(k)\) → prove \(P(k{+}1)\) using the assumption.</div>
+      <div class="f">Recurrence \(a_n=ra_{n-1}+c\) usually hides a shifted geometric sequence.</div>
+    </div>
+    <div class="cheat-card searchable">
+      <h4>Series &amp; Big-O</h4>
+      <div class="f">Arithmetic sum: \(S_n=\dfrac{n}{2}(2a_1+(n-1)d)\)</div>
+      <div class="f">Geometric sum: \(S_n=\dfrac{a_1(1-r^n)}{1-r}\)</div>
+      <div class="f">Big-O = the single fastest-growing term, no constants.</div>
+    </div>
+    <div class="cheat-card searchable">
+      <h4>Number theory</h4>
+      <div class="f">Euclidean Algorithm → \(\gcd\). Extended version → \(x,y\) with \(ax+by=\gcd(a,b)\).</div>
+      <div class="f">\(\varphi(n)=n\prod_{p|n}\left(1-\frac1p\right)\)</div>
+      <div class="f">Inverse of \(a\) mod \(m\) exists \(\iff \gcd(a,m)=1\).</div>
+    </div>
+    <div class="cheat-card searchable">
+      <h4>Counting</h4>
+      <div class="f">Order matters, no repeat: \(P(n,r)=\dfrac{n!}{(n-r)!}\)</div>
+      <div class="f">Order doesn't matter, no repeat: \(C(n,r)=\dfrac{n!}{r!(n-r)!}\)</div>
+      <div class="f">Order doesn't matter, repeats allowed: \(C(n+r-1,r)\)</div>
+    </div>
+    <div class="cheat-card searchable">
+      <h4>Probability</h4>
+      <div class="f">Total probability: \(P(B)=\sum_i P(B\mid A_i)P(A_i)\)</div>
+      <div class="f">Bayes: \(P(A\mid B)=\dfrac{P(B\mid A)P(A)}{P(B)}\)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW TO ATTACK ================= -->
+<section class="section" id="attack">
+  <div class="section-head">
+    <h2>🚀 How to Attack the Exam</h2>
+    <label class="review-toggle"><input type="checkbox" data-review="attack"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <div class="steps-attack">
+      <div class="attack-item"><div class="num"></div><div class="txt"><h4>First read</h4>Identify the topic from the noun, not the story. "Repositories/articles/libraries" is a set-theory word problem in disguise. "Keys are secure/tested" is a Bayes problem in disguise. Underline the given numbers and what's actually being asked (an expression? a value? a proof?).</div></div>
+      <div class="attack-item"><div class="num"></div><div class="txt"><h4>Keyword triggers</h4>"minimum operations" → sets; "always true" about \(f,g\) → functions/composition; "divisible by / same remainder" → relations mod n; "for all…there exists" → predicate logic; "logically equivalent…without truth table" → propositional laws; "recurrence… prove by induction" → sequences; "increases by a fixed amount" → arithmetic series; "order matters/doesn't matter", "at least" → combinatorics; "gcd", "inverse mod" → Euclidean algorithm; "given that…classified as" → Bayes.</div></div>
+      <div class="attack-item"><div class="num"></div><div class="txt"><h4>If you get stuck</h4>Write out the definition of the object involved (a set, a function, a relation) literally — most stuck points resolve once the formal definition is on the page. For counting, ask: does order matter? Can items repeat? That's a 2×2 table with only four possible formulas.</div></div>
+      <div class="attack-item"><div class="num"></div><div class="txt"><h4>Calculation questions — order of work</h4>Write down everything given symbolically first. Compute intermediate quantities (pairwise intersections, individual terms) before the final formula. Never skip straight to a final number — partial marks are awarded for correct intermediate expressions.</div></div>
+      <div class="attack-item"><div class="num"></div><div class="txt"><h4>Proof/reasoning questions — structure</h4>One logical step per line. Name the law used on every line (e.g. "De Morgan's Law", "Distributive Law", "Implication Law") in brackets next to the line. End on the exact target expression, not something merely equivalent-looking.</div></div>
+      <div class="attack-item"><div class="num"></div><div class="txt"><h4>Before submitting</h4>Check units/labels on your final answer. For "always true" MCQs, try to find a counterexample for each option — if you can't find one, it's the answer. For probability, check your final probability is between 0 and 1. For induction, check the base case was actually verified, not just the inductive step.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUESTION MAP ================= -->
+<section class="section" id="qmap">
+  <div class="section-head">
+    <h2>📝 Question → Concept Map <span class="priority must">Must know</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="qmap"> mark reviewed</label>
+  </div>
+  <p class="section-intro searchable">Every recurring question type from the Mock Test and the Practice Quiz, mapped 1:1. These two documents test the <em>exact same eleven skills</em> — this is almost certainly the real shape of Test 3.</p>
+
+  <div class="qp-card searchable">
+    <h3>1. Set expression + Inclusion–Exclusion</h3>
+    <div class="qp-flow"><span class="node">"minimum operations" / "distinct articles across repositories"</span><span class="arrow">→</span><span class="node">Set theory</span><span class="arrow">→</span><span class="node">Venn diagram + IE formula</span><span class="arrow">→</span><span class="node">Avoid: double counting overlaps</span></div>
+    <div class="sources">Seen in: Practice Q1, Mock Q1</div>
+  </div>
+  <div class="qp-card searchable">
+    <h3>2. "Always true" function statement (MCQ)</h3>
+    <div class="qp-flow"><span class="node">"g∘f is injective/surjective/bijective, then…"</span><span class="arrow">→</span><span class="node">Function composition properties</span><span class="arrow">→</span><span class="node">Test each option with a small counterexample</span><span class="arrow">→</span><span class="node">Avoid: assuming the converse holds</span></div>
+    <div class="sources">Seen in: Practice Q2, Mock Q2 (bijection counting variant)</div>
+  </div>
+  <div class="qp-card searchable">
+    <h3>3. Congruence-mod-n relation properties</h3>
+    <div class="qp-flow"><span class="node">"a R b iff a−b divisible by k"</span><span class="arrow">→</span><span class="node">Binary relations / equivalence relations</span><span class="arrow">→</span><span class="node">Check reflexive, symmetric, transitive directly from the definition</span><span class="arrow">→</span><span class="node">Avoid: assuming it's an equivalence relation without checking all 3</span></div>
+    <div class="sources">Seen in: Practice Q3, Mock Q3</div>
+  </div>
+  <div class="qp-card searchable">
+    <h3>4. Predicate logic translation, incl. nested quantifiers</h3>
+    <div class="qp-flow"><span class="node">"all X are…", "there exists an X that…all others"</span><span class="arrow">→</span><span class="node">Predicate logic</span><span class="arrow">→</span><span class="node">Peel the sentence outside-in; fix quantifier order</span><span class="arrow">→</span><span class="node">Avoid: swapping ∀/∃ order</span></div>
+    <div class="sources">Seen in: Practice Q6, Mock Q4</div>
+  </div>
+  <div class="qp-card searchable">
+    <h3>5. Boolean-algebra equivalence proof (no truth table)</h3>
+    <div class="qp-flow"><span class="node">"prove X ≡ Y using logical equivalences"</span><span class="arrow">→</span><span class="node">Propositional logic laws</span><span class="arrow">→</span><span class="node">Rewrite implications, apply De Morgan/distributive, name each law</span><span class="arrow">→</span><span class="node">Avoid: unnamed steps, using a truth table</span></div>
+    <div class="sources">Seen in: Practice Q5, Mock Q5</div>
+  </div>
+  <div class="qp-card searchable">
+    <h3>6. Recurrence → closed form → induction proof</h3>
+    <div class="qp-flow"><span class="node">"aₙ = r·aₙ₋₁ + c" / "triples each day"</span><span class="arrow">→</span><span class="node">Sequences &amp; induction</span><span class="arrow">→</span><span class="node">Compute first terms, guess pattern, prove by induction</span><span class="arrow">→</span><span class="node">Avoid: forgetting the base case</span></div>
+    <div class="sources">Seen in: Practice Q7, Mock Q6</div>
+  </div>
+  <div class="qp-card searchable">
+    <h3>7. Fixed-increment step sequence → arithmetic series → Big-O</h3>
+    <div class="qp-flow"><span class="node">"increases by a fixed amount each step/day"</span><span class="arrow">→</span><span class="node">Arithmetic sequences &amp; series</span><span class="arrow">→</span><span class="node">Find aₙ, then Sₙ = n/2(2a₁+(n−1)d)</span><span class="arrow">→</span><span class="node">Avoid: reporting T(n) itself as the Big-O answer</span></div>
+    <div class="sources">Seen in: Practice Q8, Mock Q7</div>
+  </div>
+  <div class="qp-card searchable">
+    <h3>8. Constrained arrangement / selection expression</h3>
+    <div class="qp-flow"><span class="node">"how many ways", "at least ___ of each type", "order matters?"</span><span class="arrow">→</span><span class="node">Combinatorics</span><span class="arrow">→</span><span class="node">Decide order/repetition, split into valid cases, sum/multiply</span><span class="arrow">→</span><span class="node">Avoid: mixing C(n,r) and P(n,r)</span></div>
+    <div class="sources">Seen in: Practice Q9–10, Mock Q9–10</div>
+  </div>
+  <div class="qp-card searchable">
+    <h3>9. Euler totient + Extended Euclidean Algorithm</h3>
+    <div class="qp-flow"><span class="node">"φ(n)", "find x, y such that ax+by=gcd", "multiplicative inverse"</span><span class="arrow">→</span><span class="node">Number theory</span><span class="arrow">→</span><span class="node">Prime-factorise for φ; run EEA forward then back-substitute</span><span class="arrow">→</span><span class="node">Avoid: sign errors in back-substitution</span></div>
+    <div class="sources">Seen in: Practice Q11, Mock Q8</div>
+  </div>
+  <div class="qp-card searchable">
+    <h3>10. Two-stage random experiment → total probability → Bayes</h3>
+    <div class="qp-flow"><span class="node">"probability a key/die is secure/weighted, given the test/roll result"</span><span class="arrow">→</span><span class="node">Discrete probability</span><span class="arrow">→</span><span class="node">Draw a probability tree; total probability then Bayes</span><span class="arrow">→</span><span class="node">Avoid: dividing by P(A) instead of P(B)</span></div>
+    <div class="sources">Seen in: Practice Q12, Mock Q11</div>
+  </div>
+</section>
+
+<!-- ================= SETS ================= -->
+<section class="section" id="sets">
+  <div class="section-head">
+    <h2>Sets &amp; Inclusion–Exclusion <span class="priority must">Must know</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="sets"> mark reviewed</label>
+  </div>
+
+  <div class="card searchable">
+    <h3>Subsets, Supersets &amp; the Power Set</h3>
+    <div class="subtag">Week 1.1</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">\(A\subseteq B\) means every element of A is also in B (A could equal B). \(A\subsetneq B\) (proper subset) additionally requires \(A\ne B\). The <b>power set</b> \(\mathcal P(A)\) is the set of <em>all</em> subsets of A, including \(\emptyset\) and A itself.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(A\subseteq B \iff \forall x(x\in A\Rightarrow x\in B)\)<br>\(|\mathcal P(A)| = 2^{|A|}\) &nbsp;(each element is independently "in" or "out" → \(2\) choices per element)</div></div>
+    <div class="blk"><div class="lbl">How to recognise it</div><div class="recognize">"How many subsets does…", "list the power set of…", or any proof asking you to show one set is contained in another.</div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Q</b>: \(A=\{x,y,z\}\). Find \(\mathcal P(A)\) and \(|\mathcal P(A)|\).</div>
+      <div class="step">\(\mathcal P(A)=\{\emptyset,\{x\},\{y\},\{z\},\{x,y\},\{x,z\},\{y,z\},\{x,y,z\}\}\)</div>
+      <div class="step"><b>Final answer</b>: \(|\mathcal P(A)|=2^3=8\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Forgetting to include \(\emptyset\) and the full set A itself in the power set — both are always subsets. Proving \(A\subseteq B\) by checking a few elements instead of the general element argument.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Set operations &amp; expressing a target set</h3>
+    <div class="subtag">Weeks 1.1–1.2 · minimum-operations style questions</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">A set is described by its operations: union \(\cup\) (or), intersection \(\cap\) (and), complement \('\) (not in), difference \(\setminus\) (in one but not other), symmetric difference \(\triangle\) (in exactly one).</div></div>
+    <div class="blk"><div class="lbl">What the exam may ask</div><div class="blk-body">"Express the set \(\{...\}\) using the minimum number of set operations on A, B, C." — an exact target set is given, you must reverse-engineer the operation chain.</div></div>
+    <div class="blk"><div class="lbl">How to recognise it</div><div class="recognize">A short explicit list of elements is given as the target, alongside 2–3 named sets. The phrase "minimum number of operations" is the giveaway.</div></div>
+    <div class="blk method"><div class="lbl">Method</div><div class="blk-body"><ol>
+      <li>List which of A, B, C each target element belongs to.</li>
+      <li>Look for a single named set that already matches, or a simple intersection/difference of two sets that matches exactly.</li>
+      <li>Verify: does your expression include anything extra? Exclude via a second operation only if necessary.</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(A\cap B=\{x: x\in A \text{ and } x\in B\}\qquad A\setminus B=\{x: x\in A \text{ and } x\notin B\}\)</div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Given</b>: \(A=\{1,3,5,7,9\}\), \(B=\{2,3,5,7\}\), \(C=\{1,2,5,8,9\}\). Target: \(\{3,7\}\).</div>
+      <div class="step"><b>Step 1</b>: 3 is in A and B, not C. 7 is in A and B, not C.</div>
+      <div class="step"><b>Step 2</b>: \(A\cap B=\{3,5,7\}\) — close, but has an extra 5.</div>
+      <div class="step"><b>Step 3</b>: Remove 5 by intersecting with \(C'\) (5 is in C): \((A\cap B)\setminus C=\{3,7\}\). ✓ Two operations — minimal.</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Reaching a correct-looking set with more operations than necessary (marks are lost for non-minimal answers). Also: forgetting that "not in C" means intersecting with \(C'\), not just writing "\(\setminus C\)" loosely without justifying it matches exactly.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Always double-check your final expression by mentally evaluating it against the original sets, element by element — this catches over/under-inclusion instantly.</div></div>
+    <details class="quickcheck"><summary>Quick check</summary><div class="ans">If \(A=\{1,2,3\}\), \(B=\{2,3,4\}\), what is the minimal expression for \(\{1\}\)? → \(A\setminus B\) (or equivalently \(A\cap B'\)).</div></details>
+  </div>
+
+  <div class="card searchable">
+    <h3>Inclusion–Exclusion Principle</h3>
+    <div class="subtag">Week 8.1 · cardinality of unions</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">To count \(|A\cup B\cup C|\) you can't just add the three sizes — overlaps get counted multiple times, so you add back and subtract to correct for it.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(|A\cup B| = |A|+|B|-|A\cap B|\)<br>\(|A\cup B\cup C| = |A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|\)</div></div>
+    <div class="blk"><div class="lbl">Recognise it</div><div class="recognize">"Total distinct items across repositories/groups", with pairwise-overlap and triple-overlap counts given, or a complement/cardinality question on a universal set.</div></div>
+    <div class="blk method"><div class="lbl">Method</div><div class="blk-body"><ol>
+      <li>Write down all given quantities, being careful: is "20 on both X and Y" the raw pairwise overlap \(|X\cap Y|\), or does it already exclude the triple overlap? (Usually it's the raw pairwise value — this is the #1 place marks are lost.)</li>
+      <li>Substitute directly into the 3-set IE formula.</li>
+      <li>For a complement question (\((A\cup B\cup C)'\) in universe U): compute \(|A\cup B\cup C|\) first, then \(|U|-\) that.</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Given</b>: \(|X|=50,|Y|=45,|Z|=35\); \(|X\cap Y|=20, |X\cap Z|=16, |Y\cap Z|=14\); \(|X\cap Y\cap Z|=8\).</div>
+      <div class="step"><b>Step 1</b>: \(|X\cup Y\cup Z| = 50+45+35-20-16-14+8\).</div>
+      <div class="step"><b>Step 2</b>: \(=130-50+8=88\).</div>
+      <div class="step"><b>Final answer</b>: 88 distinct articles.</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Adding the triple overlap twice, or forgetting to add it back at all (sign is <b>+</b>, not −, for the triple term). Also forgetting the complement step's subtraction from \(|U|\) when a "not in Y" style set is asked for.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Sketch a 3-circle Venn diagram and fill in the innermost region first (the triple overlap), then work outward — it makes the "+add back" step obvious and hard to forget.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Complement, Difference &amp; Symmetric Difference</h3>
+    <div class="subtag">Week 1.2</div>
+    <table class="ref"><tr><th>Operation</th><th>Meaning</th><th>Notation</th></tr>
+      <tr><td>Complement</td><td>everything in the universe U not in A</td><td>\(A' = U\setminus A\)</td></tr>
+      <tr><td>Difference</td><td>in A, but not in B</td><td>\(A\setminus B=\{x:x\in A\wedge x\notin B\}\)</td></tr>
+      <tr><td>Symmetric difference</td><td>in exactly one of A, B (not both)</td><td>\(A\triangle B=(A\setminus B)\cup(B\setminus A)=(A\cup B)\setminus(A\cap B)\)</td></tr>
+    </table>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Confusing \(A\setminus B\) (not symmetric: order matters) with \(A\triangle B\) (symmetric: order doesn't matter). Computing \(A'\) without a clearly defined universal set U — always check what U is first.</div></div>
+    <details class="quickcheck"><summary>Quick check</summary><div class="ans">\(A=\{1,2,3\}, B=\{2,3,4\}\): \(A\triangle B=\{1,4\}\); \(A\setminus B=\{1\}\); \(B\setminus A=\{4\}\).</div></details>
+  </div>
+
+  <div class="card searchable">
+    <h3>Cartesian Product &amp; Partitions</h3>
+    <div class="subtag">Week 1.3</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">\(A\times B\) is the set of all ordered pairs \((a,b)\) with \(a\in A, b\in B\) — order and which set an element came from both matter. A <b>partition</b> of A splits it into non-empty, pairwise-disjoint subsets whose union is all of A (this is exactly what an equivalence relation produces — see Relations).</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(|A\times B| = |A|\cdot|B|\)<br>Partition requirement: subsets \(A_1,\dots,A_k\) with \(A_i\cap A_j=\emptyset\) for \(i\ne j\), and \(A_1\cup\dots\cup A_k=A\), none empty.</div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Treating \(A\times B\) as unordered (it isn't — \((a,b)\ne(b,a)\) unless \(a=b\) and \(A=B\)). Calling a collection of subsets a partition when two of them overlap, or when their union misses an element of A.</div></div>
+  </div>
+</section>
+
+<!-- ================= FUNCTIONS ================= -->
+<section class="section" id="functions">
+  <div class="section-head">
+    <h2>Functions <span class="priority high">High priority</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="functions"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>Function Notation &amp; Preliminaries</h3>
+    <div class="subtag">Week 2.1</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">
+      <table class="ref"><tr><th>Term</th><th>Meaning</th></tr>
+      <tr><td>Domain</td><td>the full input set A, in \(f:A\to B\)</td></tr>
+      <tr><td>Codomain</td><td>the declared output set B (what outputs are <em>allowed</em> to be)</td></tr>
+      <tr><td>Range / image</td><td>the outputs actually <em>hit</em>: \(\{f(x):x\in A\}\subseteq B\)</td></tr>
+      </table>
+      A function must assign <em>exactly one</em> output to every input in the domain — this is what makes it a function at all (not a general relation).</div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Confusing codomain with range — the codomain is <em>declared</em>, the range is what's actually <em>achieved</em>. They're only guaranteed equal when the function is surjective.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Injective, Surjective, Bijective &amp; Composition</h3>
+    <div class="subtag">Weeks 2.1–2.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">
+      <table class="ref"><tr><th>Type</th><th>Meaning</th><th>Formal test</th></tr>
+      <tr><td>Injective (one-to-one)</td><td>Distinct inputs → distinct outputs</td><td>\(f(a)=f(b)\Rightarrow a=b\)</td></tr>
+      <tr><td>Surjective (onto)</td><td>Every codomain element is hit</td><td>\(\forall y\in B,\ \exists x, f(x)=y\)</td></tr>
+      <tr><td>Bijective</td><td>Both — a perfect pairing</td><td>Injective and surjective</td></tr>
+      </table>
+    </div></div>
+    <div class="blk"><div class="lbl">What the exam may ask</div><div class="blk-body">An "always true" MCQ about \(f,g\) and \(g\circ f\); or "how many bijections/functions exist between A and B" counting questions.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block light">Composition facts (memorise all four):<br>
+      • \(g\circ f\) injective \(\Rightarrow\) \(f\) injective (TRUE)<br>
+      • \(g\circ f\) surjective \(\Rightarrow\) \(g\) surjective (TRUE)<br>
+      • \(g\circ f\) bijective does <u>not</u> force \(f\) or \(g\) individually bijective (only forces \(f\) injective and \(g\) surjective)<br>
+      • \(f\) surjective + \(g\) injective does <u>not</u> guarantee \(g\circ f\) bijective</div></div>
+    <div class="blk"><div class="lbl">Counting formula</div><div class="formula-block">Total functions \(A\to B\): \(|B|^{|A|}\) &nbsp;|&nbsp; Bijections when \(|A|=|B|=n\): \(n!\) &nbsp;|&nbsp; Injections \(A\to B\) (\(|A|=r\le|B|=n\)): \(P(n,r)=\dfrac{n!}{(n-r)!}\)</div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Q</b>: \(A=\{a,b,c,d,e\}\), \(B=\{1,3,5,7,9\}\), \(g:A\to B\) bijection — how many ways?</div>
+      <div class="step"><b>Step</b>: \(|A|=|B|=5\), a bijection is a full pairing = a permutation of 5 elements.</div>
+      <div class="step"><b>Final answer</b>: \(5!\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Picking "the converse" of a true composition rule (e.g. assuming \(g\circ f\) injective forces \(g\) injective too — false, try \(f(x)=x, g(x)=0\) style counterexamples mentally). Confusing \(5^5\) (functions) with \(5!\) (bijections) with \(P(5,5)=5!\) (same as bijections here since sizes are equal).</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">For "always true" function MCQs, test the two provable facts above first — if an option isn't one of those two, hunt for a tiny counterexample (2–3 element sets) rather than trying to prove it.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Inverse Functions</h3>
+    <div class="subtag">Week 2.1</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">\(f^{-1}\) "undoes" f. A genuine inverse function \(f^{-1}:B\to A\) exists <b>only if f is a bijection</b> — otherwise you either can't get back to a unique input (not injective) or can't reach every starting point (not surjective).</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(f^{-1}(f(x))=x\) for all \(x\in A\); &nbsp;\(f(f^{-1}(y))=y\) for all \(y\in B\); &nbsp;\((f^{-1})^{-1}=f\)</div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Trying to write an inverse for a function that is only injective (not surjective) or only surjective (not injective) — no true inverse function exists in either case.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Cryptosystems as Function Applications</h3>
+    <div class="subtag">Week 2.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">An encryption scheme is literally a function \(E:\text{plaintext}\to\text{ciphertext}\). For a message to be decryptable, \(E\) must be <b>injective</b> (two different plaintexts can never encrypt to the same ciphertext, or decryption would be ambiguous). Decryption is the inverse function \(D=E^{-1}\), which requires \(E\) to be a bijection over the message space in use.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">If a question asks "why must an encryption function be injective/bijective", the answer is always about unique, unambiguous decryption — frame your answer around that.</div></div>
+  </div>
+</section>
+
+<!-- ================= RELATIONS ================= -->
+<section class="section" id="relations">
+  <div class="section-head">
+    <h2>Relations <span class="priority high">High priority</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="relations"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>Properties of relations &amp; equivalence relations</h3>
+    <div class="subtag">Week 2.3</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">A binary relation R on set A is just a subset of \(A\times A\). Three properties decide whether it behaves like "sameness":</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block light">Reflexive: \(\forall a\in A,\ aRa\)<br>Symmetric: \(aRb \Rightarrow bRa\)<br>Transitive: \(aRb \wedge bRc \Rightarrow aRc\)<br>Equivalence relation = all three → induces a partition into equivalence classes.</div></div>
+    <div class="blk"><div class="lbl">How to recognise it</div><div class="recognize">"a R b iff a and b have the same remainder mod k" / "a−b is divisible by k" is the classic congruence-mod-k relation — it is <b>always</b> an equivalence relation, with exactly \(k\) equivalence classes (remainders \(0,1,\dots,k-1\)).</div></div>
+    <div class="blk method"><div class="lbl">Method</div><div class="blk-body"><ol>
+      <li><b>Reflexive?</b> Is \(a-a=0\) divisible by k? Always yes → reflexive.</li>
+      <li><b>Symmetric?</b> If \(k\mid(a-b)\) does \(k\mid(b-a)\)? Yes, since \(b-a=-(a-b)\) → symmetric.</li>
+      <li><b>Transitive?</b> If \(k\mid(a-b)\) and \(k\mid(b-c)\), does \(k\mid(a-c)\)? Yes, since \((a-b)+(b-c)=(a-c)\) → transitive.</li>
+      <li>All three hold → equivalence relation; classes = the \(k\) remainder groups.</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Assuming any "same X" relation is automatically an equivalence relation without checking — the exam sometimes gives a relation that fails one property (e.g. "a R b iff a &lt; b" is transitive but not reflexive or symmetric). Always verify all three explicitly, even when confident.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">When picking multiple correct MCQ options, remember reflexive/symmetric/transitive are independent — a relation can have any combination of the three, so check each one from scratch rather than assuming a pattern.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Ternary &amp; n-ary Relations</h3>
+    <div class="subtag">Week 2.3</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">A binary relation connects pairs; an <b>n-ary relation</b> connects n-tuples — it's a subset of \(A_1\times A_2\times\dots\times A_n\). Database tables are the classic computing example: each row is a tuple satisfying the relation.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Reflexive/symmetric/transitive are defined specifically for <em>binary</em> relations — don't try to force them onto a ternary relation; instead just describe membership directly.</div></div>
+  </div>
+</section>
+
+<!-- ================= PROOFS ================= -->
+<section class="section" id="proofs">
+  <div class="section-head">
+    <h2>Proof Techniques <span class="priority high">High priority</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="proofs"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>Types of proof — pick the right tool</h3>
+    <div class="subtag">Weeks 3.1–3.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">A theorem is a statement proven true from definitions and logical deduction. Different statement shapes call for different proof strategies.</div></div>
+    <table class="ref"><tr><th>Proof type</th><th>When to use it</th><th>Idea</th></tr>
+      <tr><td>Symbolic manipulation</td><td>algebraic/logical identities</td><td>Transform one side into the other using known rules, one step at a time</td></tr>
+      <tr><td>Construction</td><td>"there exists an X such that…"</td><td>Explicitly exhibit one X that works</td></tr>
+      <tr><td>Cases</td><td>statement naturally splits (e.g. odd/even, positive/negative)</td><td>Prove the statement separately in each exhaustive case</td></tr>
+      <tr><td>Contradiction</td><td>"there is no X such that…", or when direct proof is awkward</td><td>Assume the negation is true, derive an impossible consequence</td></tr>
+      <tr><td>Induction</td><td>a statement about <em>every</em> natural number n</td><td>Base case + inductive step (see the Induction section)</td></tr>
+    </table>
+    <div class="blk"><div class="lbl">Worked example — proof by cases</div><div class="example-box">
+      <div class="step"><b>Prove</b>: \(n^2+n\) is always even, for any integer n.</div>
+      <div class="step"><b>Case 1 (n even)</b>: \(n=2k\). Then \(n^2+n=4k^2+2k=2(2k^2+k)\) — even.</div>
+      <div class="step"><b>Case 2 (n odd)</b>: \(n=2k+1\). Then \(n^2+n=(2k+1)^2+(2k+1)=4k^2+4k+1+2k+1=4k^2+6k+2=2(2k^2+3k+1)\) — even.</div>
+      <div class="step"><b>Conclusion</b>: both cases give an even result, and every integer is even or odd, so \(n^2+n\) is always even. ∎</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Worked example — proof by contradiction (structure only)</div><div class="example-box">
+      <div class="step"><b>Setup</b>: To prove "no integer solution exists", assume one <em>does</em> exist.</div>
+      <div class="step"><b>Derive</b>: use algebra/logic on that assumption until you reach something impossible (e.g. an even number equals an odd number, or \(0=1\)).</div>
+      <div class="step"><b>Conclude</b>: the assumption must be false, so the original statement (no solution exists) is true.</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Proof by cases that doesn't cover every possibility (e.g. only checking n even and forgetting n odd). Proof by construction that describes an X in words without ever pinning down a concrete value/formula. Confusing "prove false by finding a counterexample" (disproof — only needs one example) with "prove true for all n" (needs a general argument or induction — one example is never enough).</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">If the statement says "for all/every", one example is never a valid proof — you need cases, induction, or direct symbolic manipulation over a general n. One example only <em>disproves</em> a "for all" claim.</div></div>
+  </div>
+</section>
+
+<!-- ================= PROPOSITIONAL LOGIC ================= -->
+<section class="section" id="proplogic">
+  <div class="section-head">
+    <h2>Propositional Logic <span class="priority must">Must know</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="proplogic"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>Building blocks: Implication, Equivalence, XOR</h3>
+    <div class="subtag">Week 4.1</div>
+    <table class="ref"><tr><th>Connective</th><th>Meaning</th><th>Key fact</th></tr>
+      <tr><td>Implication \(P\Rightarrow Q\)</td><td>"if P then Q"</td><td>Only false when P is true and Q is false; equals \(\lnot P\vee Q\)</td></tr>
+      <tr><td>Equivalence \(P\Leftrightarrow Q\)</td><td>"P if and only if Q"</td><td>True exactly when P and Q have the <em>same</em> truth value; \(=(P\Rightarrow Q)\wedge(Q\Rightarrow P)\)</td></tr>
+      <tr><td>Exclusive-or \(P\oplus Q\)</td><td>"exactly one of P, Q"</td><td>True when P, Q differ; \(=(P\vee Q)\wedge\lnot(P\wedge Q)\)</td></tr>
+    </table>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Treating \(P\Rightarrow Q\) as "P and Q are related" rather than its precise truth table — remember it's <em>only</em> false in the one case P=true, Q=false; a false P makes the whole implication vacuously true.</div></div>
+    <div class="blk"><div class="lbl">Related: converse, inverse, contrapositive</div><div class="formula-block light">Original: \(P\Rightarrow Q\) &nbsp;|&nbsp; Converse: \(Q\Rightarrow P\) &nbsp;|&nbsp; Inverse: \(\lnot P\Rightarrow\lnot Q\) &nbsp;|&nbsp; Contrapositive: \(\lnot Q\Rightarrow\lnot P\)<br>Only the <b>contrapositive</b> is guaranteed logically equivalent to the original.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Boolean-algebra equivalence proofs</h3>
+    <div class="subtag">Weeks 4.1–4.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">Instead of a truth table, you rewrite one side of the equivalence step-by-step into the other, citing a named logical law at every line.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule — the toolbox of laws</div>
+      <table class="ref"><tr><th>Law</th><th>Rule</th></tr>
+      <tr><td>Implication</td><td>\(P\Rightarrow Q \equiv \lnot P\vee Q\)</td></tr>
+      <tr><td>De Morgan's</td><td>\(\lnot(P\wedge Q)\equiv\lnot P\vee\lnot Q\); \(\lnot(P\vee Q)\equiv\lnot P\wedge\lnot Q\)</td></tr>
+      <tr><td>Distributive</td><td>\(P\vee(Q\wedge R)\equiv(P\vee Q)\wedge(P\vee R)\); and the ∧-over-∨ version</td></tr>
+      <tr><td>Associative / Commutative</td><td>grouping and order of \(\wedge,\vee\) don't matter</td></tr>
+      <tr><td>Double negation</td><td>\(\lnot\lnot P\equiv P\)</td></tr>
+      <tr><td>Idempotent</td><td>\(P\vee P\equiv P\); \(P\wedge P\equiv P\)</td></tr>
+      <tr><td>Identity / Domination</td><td>\(P\vee F\equiv P\); \(P\vee T\equiv T\); \(P\wedge T\equiv P\); \(P\wedge F\equiv F\)</td></tr>
+      <tr><td>Absorption</td><td>\(P\vee(P\wedge Q)\equiv P\)</td></tr>
+      </table>
+    </div>
+    <div class="blk"><div class="lbl">Method</div><div class="blk-body"><ol>
+      <li>If the expression contains \(\Rightarrow\), eliminate it first via the Implication Law.</li>
+      <li>Apply De Morgan's to push negations inward onto individual variables.</li>
+      <li>Use distributive/associative laws to regroup into the target's shape.</li>
+      <li>Simplify with identity/idempotent/absorption laws until it matches the target exactly.</li>
+      <li>Name the law used in brackets at the end of every single line.</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Prove</b>: \(P\Rightarrow(Q\Rightarrow R) \equiv (P\wedge Q)\Rightarrow R\)</div>
+      <div class="step">\(P\Rightarrow(Q\Rightarrow R)\)</div>
+      <div class="step">\(\equiv \lnot P\vee(\lnot Q\vee R)\) <i>(Implication Law, applied twice)</i></div>
+      <div class="step">\(\equiv (\lnot P\vee\lnot Q)\vee R\) <i>(Associative Law)</i></div>
+      <div class="step">\(\equiv \lnot(P\wedge Q)\vee R\) <i>(De Morgan's Law)</i></div>
+      <div class="step">\(\equiv (P\wedge Q)\Rightarrow R\) <i>(Implication Law)</i></div>
+      <div class="step"><b>∎</b> — matches target exactly.</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Not naming the law on each line (loses marks even if the algebra is correct). Stopping one step short of the exact target form. Using a truth table when the question explicitly forbids it.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Work from <b>both</b> ends on scratch paper first — simplify the left side down and the right side down until they visibly meet in the middle, then write up only the clean forward chain for your final answer.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Disjunctive &amp; Conjunctive Normal Form (DNF / CNF)</h3>
+    <div class="subtag">Week 4.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">Any Boolean expression can be rewritten in a standard shape. <b>DNF</b> = an OR of AND-terms (a "sum of products"). <b>CNF</b> = an AND of OR-terms (a "product of sums"). Every truth table row that's true contributes one AND-term to DNF (one variable per row, negated if that row has it false).</div></div>
+    <div class="blk method"><div class="lbl">Method — build DNF from a truth table</div><div class="blk-body"><ol>
+      <li>Find every row where the output is True.</li>
+      <li>For each such row, write an AND of all variables (negate the ones that are False in that row).</li>
+      <li>OR all those AND-terms together.</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Truth table for \(P\oplus Q\)</b>: true when \((P,Q)=(T,F)\) or \((F,T)\).</div>
+      <div class="step">DNF: \((P\wedge\lnot Q)\vee(\lnot P\wedge Q)\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Mixing up DNF (OR of ANDs) and CNF (AND of ORs) — say the full name to yourself: "dis-JUNCTIVE" = OR is the outer connective.</div></div>
+  </div>
+</section>
+
+<!-- ================= PREDICATE LOGIC ================= -->
+<section class="section" id="predlogic">
+  <div class="section-head">
+    <h2>Predicate Logic <span class="priority must">Must know</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="predlogic"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>Quantifier basics</h3>
+    <div class="subtag">Weeks 5.1–5.2</div>
+    <table class="ref"><tr><th>Symbol</th><th>Reads as</th><th>True when</th></tr>
+      <tr><td>\(\forall x\,P(x)\)</td><td>"for all x, P(x)"</td><td>P(x) is true for <em>every</em> x in the domain</td></tr>
+      <tr><td>\(\exists x\,P(x)\)</td><td>"there exists an x such that P(x)"</td><td>P(x) is true for <em>at least one</em> x</td></tr>
+    </table>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Forgetting to state the domain of x — "for all x" means nothing without knowing what x ranges over (integers? programming languages?). Always state or confirm the domain first.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Quantifiers &amp; translating English statements</h3>
+    <div class="subtag">Weeks 5.1–5.3</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">\(\forall x\) = "for all x" (a universal claim); \(\exists x\) = "there exists an x" (at least one). Predicates like \(P(x)\) become true/false once \(x\) is substituted.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">Negating quantifiers: \(\lnot\forall x\,P(x)\equiv\exists x\,\lnot P(x)\qquad \lnot\exists x\,P(x)\equiv\forall x\,\lnot P(x)\)</div></div>
+    <div class="blk"><div class="lbl">Method — translating a sentence</div><div class="blk-body"><ol>
+      <li>Find the "domain" word (integer, programming language) — this fixes the universe for \(x\).</li>
+      <li>"All/every" → \(\forall\); attach the condition with \(\Rightarrow\): \(\forall x\,(P(x)\Rightarrow Q(x))\).</li>
+      <li>"Some/there exists" → \(\exists\); attach the condition with \(\wedge\): \(\exists x\,(P(x)\wedge Q(x))\).</li>
+      <li>For "an x that beats/relates to <b>all</b> others" — nest a second quantifier: \(\exists x\,\forall y\,(y\ne x \Rightarrow R(x,y))\).</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Q</b>: "There exists a programming language that is newer than all other programming languages." Predicates: \(P(x)\)=is a language, \(N(x,y)\)=x newer than y.</div>
+      <div class="step"><b>Step 1</b>: "There exists a language x" → \(\exists x\,(P(x)\wedge \dots)\)</div>
+      <div class="step"><b>Step 2</b>: "…that is newer than all <i>other</i> languages" → \(\forall y\,((P(y)\wedge y\ne x)\Rightarrow N(x,y))\)</div>
+      <div class="step"><b>Final</b>: \(\exists x\,\big(P(x)\wedge \forall y\,((P(y)\wedge y\ne x)\Rightarrow N(x,y))\big)\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Using \(\wedge\) inside a \(\forall\) statement instead of \(\Rightarrow\) (this wrongly claims every x satisfies P, not just the ones that do). Forgetting the "other" \(\Rightarrow y\ne x\) condition in comparative sentences — without it, x is compared to itself, which is meaningless or false. Swapping quantifier order.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Rule of thumb: <b>∀ pairs with ⇒</b>, <b>∃ pairs with ∧</b>. If you remember nothing else about quantifier translation, this single pairing rule prevents the most common error.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Multiple Quantifiers — order matters</h3>
+    <div class="subtag">Week 5.2–5.3</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">When two different quantifiers are mixed, swapping their order can change the meaning entirely. Same-type quantifiers (∀∀ or ∃∃) can always be swapped freely; mixed ones (∀∃ vs ∃∀) usually cannot.</div></div>
+    <table class="ref"><tr><th>Statement</th><th>Meaning</th></tr>
+      <tr><td>\(\forall x\,\exists y\,R(x,y)\)</td><td>Every x has <em>some</em> y that works (y can depend on x)</td></tr>
+      <tr><td>\(\exists y\,\forall x\,R(x,y)\)</td><td>There's <em>one</em> y that works for <em>every</em> x (much stronger claim)</td></tr>
+    </table>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step">Domain = integers, \(R(x,y)\): "\(x+y=0\)".</div>
+      <div class="step">\(\forall x\,\exists y\,R(x,y)\): true — for any x, pick \(y=-x\).</div>
+      <div class="step">\(\exists y\,\forall x\,R(x,y)\): false — no single y makes \(x+y=0\) for <em>every</em> x.</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">When asked to compare \(\forall x\exists y\) and \(\exists y\forall x\) versions of the same predicate, try to find a case where one is true and the other false — that's the standard way examiners test you understand the distinction.</div></div>
+  </div>
+</section>
+
+<!-- ================= INDUCTION ================= -->
+<section class="section" id="induction">
+  <div class="section-head">
+    <h2>Sequences &amp; Mathematical Induction <span class="priority must">Must know</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="induction"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>Recurrence → closed form → induction proof</h3>
+    <div class="subtag">Weeks 3.3, 6.1</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">A recurrence defines each term from previous ones (\(a_n\) from \(a_{n-1}\)). A closed form gives \(a_n\) directly from \(n\). Induction proves the closed form is correct for every \(n\), forever, using just two steps.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule — induction template</div><div class="formula-block">1. <b>Base case</b>: verify the formula for \(n=1\) (or the given starting value).<br>2. <b>Inductive hypothesis</b>: assume the formula is true for \(n=k\).<br>3. <b>Inductive step</b>: using that assumption, prove the formula for \(n=k+1\).</div></div>
+    <div class="blk method"><div class="lbl">Method for finding the closed form</div><div class="blk-body"><ol>
+      <li>Compute the first 3–4 terms directly from the recurrence.</li>
+      <li>Look for a pattern: is it \(\times r\) each time (geometric)? \(+d\) each time (arithmetic)? \(\times r\) plus a shift (geometric + constant)?</li>
+      <li>Guess the closed form, then <b>always confirm it by induction</b> even if it "looks obvious".</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Given</b>: \(D_1=3\), \(D_n=3D_{n-1}\) for \(n\ge2\) (triples each day).</div>
+      <div class="step"><b>Pattern</b>: \(D_1=3,D_2=9,D_3=27\) → closed form \(D_n=3^n\).</div>
+      <div class="step"><b>Base case</b>: \(n=1\): \(D_1=3^1=3\). ✓</div>
+      <div class="step"><b>Inductive hypothesis</b>: assume \(D_k=3^k\).</div>
+      <div class="step"><b>Inductive step</b>: \(D_{k+1}=3D_k=3\cdot3^k=3^{k+1}\). ✓ matches the formula at \(n=k+1\).</div>
+      <div class="step"><b>Conclusion</b>: by induction, \(D_n=3^n\) for all \(n\ge1\).</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Skipping or hand-waving the base case. Substituting numbers instead of algebraically using the inductive hypothesis in the \(k+1\) step (the whole point is to <em>use</em> the assumption, not just recompute from scratch). Forgetting to explicitly conclude "therefore true for all \(n\) by induction."</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">In the inductive step, always write \(a_{k+1}\) in terms of \(a_k\) first (using the recurrence), <em>then</em> substitute the inductive hypothesis for \(a_k\) — don't substitute the closed form for \(a_{k+1}\) directly, that's circular.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>The Fibonacci Sequence</h3>
+    <div class="subtag">Week 6.1</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">The standard two-term recurrence example: each term is the sum of the two before it. It's the go-to example when a recurrence depends on <em>two</em> previous terms rather than one.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(F_1=1,\ F_2=1,\ F_n=F_{n-1}+F_{n-2}\ (n\ge3)\)<br>Sequence: \(1,1,2,3,5,8,13,21,\dots\)</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">If you're given a two-term recurrence (depends on the previous <em>two</em> terms, not one), your induction proof needs <b>two</b> base cases (\(n=1\) and \(n=2\)) before the inductive step — this is the main way Fibonacci-style questions differ from the standard single-term induction template.</div></div>
+  </div>
+</section>
+
+<!-- ================= SERIES & BIG-O ================= -->
+<section class="section" id="series">
+  <div class="section-head">
+    <h2>Series &amp; Big-O <span class="priority high">High priority</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="series"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>Limits of Sequences</h3>
+    <div class="subtag">Week 6.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">The limit of a sequence \(a_n\) as \(n\to\infty\) is the value the terms get arbitrarily close to (if one exists). A sequence with no such value <b>diverges</b>.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(\displaystyle\lim_{n\to\infty}\frac1n=0\)&nbsp;&nbsp; Geometric \(a_n=r^n\): limit is 0 if \(|r|<1\), diverges (or grows) if \(|r|\ge1\)&nbsp;&nbsp; For a rational function of n, divide every term by the highest power of n present.</div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step">\(\displaystyle\lim_{n\to\infty}\frac{3n^2+1}{5n^2+2n}\): divide top and bottom by \(n^2\): \(\dfrac{3+1/n^2}{5+2/n}\to\dfrac{3}{5}\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Assuming any sequence that "gets big" diverges to infinity — some oscillate or converge; check the actual algebraic behaviour, don't guess from a couple of terms.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Sums &amp; Summation Notation</h3>
+    <div class="subtag">Week 6.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">\(\sum\) (sigma) is repeated addition; \(\prod\) (pi) is repeated multiplication, both over an index running through a range.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(\displaystyle\sum_{i=1}^n i = \frac{n(n+1)}{2}\qquad \sum_{i=1}^n i^2=\frac{n(n+1)(2n+1)}{6}\qquad \sum_{i=1}^n c\cdot a_i = c\sum_{i=1}^n a_i\)<br>\(\displaystyle\prod_{i=1}^n i = n!\)</div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Forgetting that \(\sum\) is linear (can split across a + inside), but is <em>not</em> "distributive" over multiplication of two different sequences — \(\sum a_ib_i \ne (\sum a_i)(\sum b_i)\) in general.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Arithmetic series → total &amp; complexity</h3>
+    <div class="subtag">Weeks 6.2–6.3</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">"Increases by a fixed amount each step" = arithmetic sequence. The per-step value is \(a_n\); the running total up to step \(n\) is the series sum \(T(n)\).</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(a_n = a_1+(n-1)d\)<br>\(S_n=\displaystyle\sum_{i=1}^n a_i=\frac{n}{2}\big(2a_1+(n-1)d\big)=\frac{n}{2}(a_1+a_n)\)<br>Geometric: \(a_n=a_1r^{n-1}\), \(S_n=\dfrac{a_1(1-r^n)}{1-r}\), infinite (\(|r|<1\)): \(\dfrac{a_1}{1-r}\)</div></div>
+    <div class="blk"><div class="lbl">Method</div><div class="blk-body"><ol>
+      <li>Identify \(a_1\) (first-step value) and \(d\) (fixed increase) directly from the wording.</li>
+      <li>Write \(a_n\) using the formula above.</li>
+      <li>Plug \(a_n\) into the sum formula for \(T(n)\) — this simplifies to a quadratic in \(n\).</li>
+      <li>Big-O: keep only the highest power of \(n\), drop the coefficient. A quadratic \(T(n)\) → \(O(n^2)\).</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Given</b>: step 1 → 2 ops, step 2 → 5 ops, step 3 → 8 ops, +3 each time.</div>
+      <div class="step"><b>Step 1</b>: \(a_1=2,\ d=3 \Rightarrow f_n=2+3(n-1)=3n-1\).</div>
+      <div class="step"><b>Step 2</b>: \(T(n)=\frac{n}{2}(2(2)+(n-1)3)=\frac{n}{2}(3n+1)=\frac{3n^2+n}{2}\).</div>
+      <div class="step"><b>Step 3</b>: highest power is \(n^2\) → <b>\(T(n)=O(n^2)\)</b>.</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Reporting the full formula for \(T(n)\) when asked for Big-O (Big-O wants the growth class only, e.g. \(O(n^2)\), not \(\frac{3n^2+n}{2}\)). Confusing \(f_n\) (the value <em>at</em> step n) with \(T(n)\) (the <em>running total</em>) — these are two different quantities in almost every question.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Sanity-check \(a_n\) and \(T(n)\) by plugging in \(n=1\): \(a_1\) should equal the given first value, and \(T(1)\) should also equal that same first value.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Arithmetic vs Geometric — comparison</h3>
+    <div class="subtag">Weeks 6.3</div>
+    <table class="ref"><tr><th></th><th>Arithmetic</th><th>Geometric</th></tr>
+      <tr><td>Pattern between terms</td><td>add a fixed \(d\)</td><td>multiply by a fixed \(r\)</td></tr>
+      <tr><td>nth term</td><td>\(a_n=a_1+(n-1)d\)</td><td>\(a_n=a_1r^{n-1}\)</td></tr>
+      <tr><td>Sum of first n</td><td>\(\frac n2(2a_1+(n-1)d)\)</td><td>\(\frac{a_1(1-r^n)}{1-r}\ (r\ne1)\)</td></tr>
+      <tr><td>Infinite sum</td><td>never converges (unless \(d=0\))</td><td>converges to \(\frac{a_1}{1-r}\) only if \(|r|<1\)</td></tr>
+      <tr><td>Key signal word</td><td>"increases/decreases by a fixed amount"</td><td>"doubles/triples", "multiplied by"</td></tr>
+    </table>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Using the infinite geometric formula when \(|r|\ge1\) — it only applies for \(|r|<1\); otherwise the sum diverges and has no finite value.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Big-O Notation — deeper look</h3>
+    <div class="subtag">Week 6.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">Big-O describes how an algorithm's cost grows as input size \(n\) grows, ignoring constants and lower-order terms — it's about long-run growth <em>rate</em>, not the exact count.</div></div>
+    <table class="ref"><tr><th>Order (fastest → slowest)</th><th>Name</th><th>Typical source</th></tr>
+      <tr><td>\(O(1)\)</td><td>constant</td><td>a fixed number of operations, regardless of n</td></tr>
+      <tr><td>\(O(\log n)\)</td><td>logarithmic</td><td>halving the problem each step</td></tr>
+      <tr><td>\(O(n)\)</td><td>linear</td><td>one pass through n items</td></tr>
+      <tr><td>\(O(n\log n)\)</td><td>linearithmic</td><td>divide-and-conquer with a linear merge step</td></tr>
+      <tr><td>\(O(n^2)\)</td><td>quadratic</td><td>a nested loop / arithmetic series total</td></tr>
+      <tr><td>\(O(2^n)\)</td><td>exponential</td><td>trying every subset</td></tr>
+    </table>
+    <div class="blk"><div class="lbl">Method</div><div class="blk-body"><ol>
+      <li>Find the exact formula for total work (often a series sum).</li>
+      <li>Identify the single fastest-growing term as \(n\to\infty\).</li>
+      <li>Drop its coefficient and every lower-order term — that's the Big-O class.</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Reporting a Big-O class that still has a coefficient or extra terms, e.g. writing \(O(3n^2+n)\) instead of \(O(n^2)\) — Big-O notation never keeps constants or lower-order terms.</div></div>
+  </div>
+</section>
+
+<!-- ================= NUMBER THEORY ================= -->
+<section class="section" id="numtheory">
+  <div class="section-head">
+    <h2>Number Theory <span class="priority must">Must know</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="numtheory"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>GCD, Coprimality &amp; the Euclidean Algorithm (basic)</h3>
+    <div class="subtag">Weeks 7.1–7.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">\(\gcd(a,b)\) is the largest integer dividing both a and b. Two integers are <b>coprime</b> (relatively prime) exactly when \(\gcd(a,b)=1\) — they share no common factor except 1.</div></div>
+    <div class="blk"><div class="lbl">Method — Euclidean Algorithm</div><div class="blk-body"><ol>
+      <li>Divide the larger by the smaller: \(a=bq+r\).</li>
+      <li>Replace \((a,b)\) with \((b,r)\) and repeat.</li>
+      <li>Stop when the remainder is 0 — the gcd is the last non-zero remainder.</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step">\(\gcd(48,18)\): \(48=2(18)+12\); \(18=1(12)+6\); \(12=2(6)+0\).</div>
+      <div class="step"><b>Final answer</b>: \(\gcd(48,18)=6\)</div>
+    </div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Extended Euclidean Algorithm</h3>
+    <div class="subtag">Weeks 7.1–7.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">The Euclidean Algorithm finds \(\gcd(a,b)\) by repeated division. Running it "backwards" (back-substitution) expresses that gcd as \(ax+by=\gcd(a,b)\) — Bézout's identity.</div></div>
+    <div class="blk method"><div class="lbl">Method</div><div class="blk-body"><ol>
+      <li><b>Forward pass</b>: repeatedly divide, \(a=bq+r\), replacing \((a,b)\to(b,r)\), until remainder 0. The last nonzero remainder is the gcd.</li>
+      <li><b>Back-substitution</b>: starting from the second-to-last equation, isolate the remainder, then substitute upward step by step until everything is written in terms of the original \(a,b\).</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Find</b> \(x,y\) with \(210x+135y=\gcd(210,135)\).</div>
+      <div class="step"><b>Forward</b>: \(210=1(135)+75\); &nbsp;\(135=1(75)+60\); &nbsp;\(75=1(60)+15\); &nbsp;\(60=4(15)+0\). So \(\gcd=15\).</div>
+      <div class="step"><b>Back-substitute</b>: \(15=75-1(60)\)</div>
+      <div class="step">\(=75-1(135-75)=2(75)-135\)</div>
+      <div class="step">\(=2(210-135)-135=2(210)-3(135)\)</div>
+      <div class="step"><b>Final answer</b>: \(x=2,\ y=-3\) &nbsp;(check: \(210(2)+135(-3)=420-405=15\) ✓)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Modular inverse rule</div><div class="formula-block">The inverse of \(a\) mod \(m\) exists \(\iff \gcd(a,m)=1\). If \(\gcd(a,m)=d>1\), no inverse exists — say so explicitly rather than leaving it blank.</div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Sign errors during back-substitution (track + / − carefully at each line). Reporting only \(\gcd\) when \(x,y\) were asked for. Assuming an inverse always exists without checking gcd = 1 first.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Always verify your final \(x,y\) by plugging back into \(ax+by\) — this five-second check catches almost every arithmetic slip.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Euler's Totient Function \(\varphi(n)\)</h3>
+    <div class="subtag">Week 7.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">\(\varphi(n)\) counts integers from 1 to \(n\) that are coprime to \(n\) (share no common factor except 1).</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(\varphi(n)=n\displaystyle\prod_{p\,\mid\,n}\left(1-\frac1p\right)\) &nbsp;(product over each <em>distinct</em> prime factor \(p\) of \(n\))<br>Multiplicative: if \(\gcd(m,n)=1\), \(\varphi(mn)=\varphi(m)\varphi(n)\)</div></div>
+    <div class="blk method"><div class="lbl">Method</div><div class="blk-body"><ol>
+      <li>Prime-factorise \(n\).</li>
+      <li>Apply the product formula using only the <em>distinct</em> primes (don't double-count a repeated prime factor).</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Find</b> \(\varphi(120)\). Factorise: \(120=2^3\times3\times5\).</div>
+      <div class="step">Distinct primes: 2, 3, 5.</div>
+      <div class="step">\(\varphi(120)=120\left(1-\frac12\right)\left(1-\frac13\right)\left(1-\frac15\right)=120\cdot\frac12\cdot\frac23\cdot\frac45\)</div>
+      <div class="step"><b>Final answer</b>: \(=32\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Using the prime factor's exponent as a multiplier for the fraction (e.g. using \((1-1/2)\) three times for \(2^3\)) — the formula only uses each distinct prime once, regardless of its power.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Modular Arithmetic Basics</h3>
+    <div class="subtag">Week 7.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">\(a\bmod m\) is the remainder when a is divided by m — arithmetic "wraps around" every m. \(a\equiv b\pmod m\) means a and b leave the same remainder mod m (equivalently, \(m\mid(a-b)\)).</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\((a+b)\bmod m = ((a\bmod m)+(b\bmod m))\bmod m\)<br>\((a\times b)\bmod m = ((a\bmod m)\times(b\bmod m))\bmod m\)<br>These let you reduce numbers <em>before</em> multiplying, keeping intermediate values small.</div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step">\((17\times 23)\bmod 5\): reduce first — \(17\bmod5=2,\ 23\bmod5=3\).</div>
+      <div class="step">\((2\times3)\bmod5=6\bmod5=1\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Always reduce mod m <em>before</em> multiplying large numbers by hand — it keeps the arithmetic small and avoids errors, and gives the same final answer.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Primitive Roots &amp; One-Way Functions</h3>
+    <div class="subtag">Week 7.3</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">Modular exponentiation \(f(x)=g^x\bmod p\) is easy to compute forward but hard to reverse (finding x given the result is the <b>discrete logarithm problem</b>) — this asymmetry makes it a <b>one-way function</b>, the backbone of public-key cryptography. A <b>primitive root</b> g of p generates every non-zero residue mod p as x ranges over \(1,\dots,p-1\).</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">If asked "why is this function useful for cryptography", the answer is always: easy to compute one direction, computationally infeasible to reverse without extra information (a private key).</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Applications to Cryptography</h3>
+    <div class="subtag">Week 7.3</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">This course's number theory tools combine directly into public-key cryptography: modular exponentiation for one-way encryption, the Extended Euclidean Algorithm to find decryption/modular-inverse keys, and Euler's totient function to determine valid exponents (as in RSA, where keys are chosen using \(\varphi(n)\) for \(n=pq\)).</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">If a question links number theory to security, connect the dots explicitly: state which tool (gcd/EEA/φ(n)/modular exponentiation) is doing the cryptographic work and why.</div></div>
+  </div>
+</section>
+
+<!-- ================= COMBINATORICS ================= -->
+<section class="section" id="combinatorics">
+  <div class="section-head">
+    <h2>Counting &amp; Combinatorics <span class="priority must">Must know</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="combinatorics"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>Ordered vs Unordered Selection — the foundations</h3>
+    <div class="subtag">Week 8.1</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">Every counting problem is really a selection of items from a pool. Two independent yes/no questions fully classify it: does the <b>order</b> of selection matter, and can an item be <b>chosen more than once</b>?</div></div>
+    <div class="blk"><div class="lbl">Formula / rule — permutations of everything</div><div class="formula-block">All n distinct items in a row: \(n!\) arrangements.<br>With repeated identical items (e.g. \(n_1\) of type 1, \(n_2\) of type 2, …): \(\dfrac{n!}{n_1!\,n_2!\cdots}\)</div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Q</b>: How many distinct arrangements of the letters in "BANANA"?</div>
+      <div class="step">6 letters total: A×3, N×2, B×1.</div>
+      <div class="step"><b>Final answer</b>: \(\dfrac{6!}{3!\,2!\,1!}=\dfrac{720}{6\cdot2}=60\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Using plain \(n!\) when some items are identical — this overcounts, since swapping two identical items produces an arrangement that looks the same but gets counted separately.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Picking the right formula: order &amp; repetition</h3>
+    <div class="subtag">Weeks 8.1–8.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">Every counting question reduces to two yes/no questions: does <b>order</b> matter, and can items <b>repeat</b>? That gives exactly four formulas.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div>
+      <table class="ref"><tr><th></th><th>No repetition</th><th>Repetition allowed</th></tr>
+      <tr><td><b>Order matters</b></td><td>\(P(n,r)=\dfrac{n!}{(n-r)!}\)</td><td>\(n^r\)</td></tr>
+      <tr><td><b>Order doesn't matter</b></td><td>\(C(n,r)=\dfrac{n!}{r!(n-r)!}\)</td><td>\(C(n+r-1,r)\) (stars &amp; bars)</td></tr>
+      </table>
+    </div>
+    <div class="blk method"><div class="lbl">Method for constrained arrangements ("at least X of type A")</div><div class="blk-body"><ol>
+      <li>List every valid split of the total across the categories satisfying every "at least" constraint.</li>
+      <li>For each split, count combinations of choosing which items (using \(C\)), then multiply by arrangements of the chosen items in position (using \(!\) or \(P\)) if order/position matters.</li>
+      <li>Sum across all valid splits (they're mutually exclusive cases).</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Q</b>: 8 shelf spaces (order matters), fill from 5 maths + 6 CS books, at least 2 maths AND at least 3 CS.</div>
+      <div class="step"><b>Step 1</b>: possible (maths, CS) splits summing to 8 with maths≥2, CS≥3, maths≤5, CS≤6: (2,6),(3,5),(4,4),(5,3).</div>
+      <div class="step"><b>Step 2</b>: for each split \((m,c)\): choose books \(C(5,m)\cdot C(6,c)\), then arrange all 8 chosen books in order: \(\times 8!\).</div>
+      <div class="step"><b>Final expression</b>: \(8!\big[C(5,2)C(6,6)+C(5,3)C(6,5)+C(5,4)C(6,4)+C(5,5)C(6,3)\big]\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Using \(C(n,r)\) when the question says arrangement/order matters — always re-check the order question before writing the final formula. Forgetting a valid split in an "at least" case list (write out the full inequality range before listing splits, don't just guess a couple).</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Say the two-question test out loud for every counting problem: "does order matter?" then "can it repeat?" — this takes 5 seconds and prevents the most common error type in the whole course.</div></div>
+    <details class="quickcheck"><summary>Quick check</summary><div class="ans">6 flavours, 10 scoops, order doesn't matter, flavours can repeat → stars and bars: \(C(6+10-1,10)=C(15,10)\).</div></details>
+  </div>
+
+  <div class="card searchable">
+    <h3>Binomial Coefficient Properties</h3>
+    <div class="subtag">Week 8.2</div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(\binom nr=\binom{n}{n-r}\) &nbsp;(choosing r to include = choosing \(n-r\) to exclude)<br>\(\binom n0=\binom nn=1\qquad \binom n1=n\)<br>Pascal's identity: \(\binom nr=\binom{n-1}{r-1}+\binom{n-1}{r}\)<br>\(\displaystyle\sum_{r=0}^n\binom nr=2^n\) (this is exactly \(|\mathcal P(A)|\) for \(|A|=n\) — every subset has some size r)</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">The symmetry rule \(\binom nr=\binom{n}{n-r}\) is a fast way to sanity-check or simplify a combinatorics answer that looks unwieldy.</div></div>
+  </div>
+</section>
+
+<!-- ================= PROBABILITY ================= -->
+<section class="section" id="probability">
+  <div class="section-head">
+    <h2>Probability &amp; Bayes' Theorem <span class="priority must">Must know</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="probability"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <h3>Sample Space, Events &amp; Basic Rules</h3>
+    <div class="subtag">Week 9.1</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">The sample space \(S\) is the set of all possible outcomes. An event is any subset of \(S\). \(P(A)=\dfrac{|A|}{|S|}\) when outcomes are equally likely.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(0\le P(A)\le1\qquad P(S)=1\qquad P(A')=1-P(A)\)<br>\(P(A\cup B)=P(A)+P(B)-P(A\cap B)\) — the probability version of inclusion–exclusion</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Mutually Exclusive vs Independent Events</h3>
+    <div class="subtag">Week 9.1</div>
+    <table class="ref"><tr><th></th><th>Mutually exclusive</th><th>Independent</th></tr>
+      <tr><td>Meaning</td><td>can't both happen: \(A\cap B=\emptyset\)</td><td>one occurring doesn't affect the other's probability</td></tr>
+      <tr><td>Test</td><td>\(P(A\cap B)=0\)</td><td>\(P(A\cap B)=P(A)\cdot P(B)\)</td></tr>
+      <tr><td>Union formula</td><td>\(P(A\cup B)=P(A)+P(B)\)</td><td>\(P(A\cup B)=P(A)+P(B)-P(A)P(B)\)</td></tr>
+    </table>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Treating mutually exclusive and independent as the same thing — they're nearly opposite: two mutually exclusive events with nonzero probability are actually <em>maximally dependent</em> (if one happens, the other definitely can't).</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Conditional Probability</h3>
+    <div class="subtag">Week 9.2</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">\(P(A\mid B)\) is the probability of A, now that we know B has happened — it restricts the sample space down to just B.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(P(A\mid B)=\dfrac{P(A\cap B)}{P(B)}\qquad(P(B)>0)\)<br>Rearranged (multiplication rule): \(P(A\cap B)=P(A\mid B)P(B)=P(B\mid A)P(A)\)</div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Confusing \(P(A\mid B)\) with \(P(B\mid A)\) — these are generally different values; this exact confusion is what Bayes' theorem exists to correct for.</div></div>
+  </div>
+
+  <div class="card searchable">
+    <h3>Total probability → Bayes' Theorem</h3>
+    <div class="subtag">Weeks 9.1–9.3</div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">These questions have a hidden "which scenario am I in" event (which die was picked / whether the key is secure), followed by an observed outcome (rolled even / classified secure). Total probability finds the chance of the observation; Bayes reverses it to find the chance of the scenario given the observation.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">Total probability: \(P(B)=\displaystyle\sum_i P(B\mid A_i)P(A_i)\)<br>Bayes' theorem: \(P(A_i\mid B)=\dfrac{P(B\mid A_i)P(A_i)}{P(B)}\)</div></div>
+    <div class="blk method"><div class="lbl">Method</div><div class="blk-body"><ol>
+      <li>Draw a two-stage probability tree: first branch = which scenario (prior), second branch = observed outcome given each scenario.</li>
+      <li>Multiply along each branch to get joint probabilities \(P(A_i)P(B\mid A_i)\).</li>
+      <li>Sum all joint probabilities for the total \(P(B)\) (part a).</li>
+      <li>For part b, divide the <em>one</em> relevant joint probability by the total from step 3.</li>
+    </ol></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Given</b>: pick Die A or B with prob \(\frac12\) each. \(P(\text{even}\mid A)=\frac12\), \(P(\text{even}\mid B)=\frac23\). Roll twice.</div>
+      <div class="step"><b>(a)</b> \(P(\text{even,even}\mid A)=(\frac12)^2=\frac14\); \(P(\text{even,even}\mid B)=(\frac23)^2=\frac49\).</div>
+      <div class="step">Total: \(P(\text{both even})=\frac12\cdot\frac14+\frac12\cdot\frac49=\frac18+\frac29=\frac{9}{72}+\frac{16}{72}=\frac{25}{72}\).</div>
+      <div class="step"><b>(b)</b> \(P(B\mid\text{both even})=\dfrac{\frac12\cdot\frac49}{\frac{25}{72}}=\dfrac{\frac29}{\frac{25}{72}}=\dfrac{16/72}{25/72}=\dfrac{16}{25}\).</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Dividing by the wrong quantity in Bayes (must divide by the <em>total</em> \(P(B)\), not by \(P(A_i)\) or 1). Forgetting to square the single-roll probability when the event is "both rolls". Not simplifying the final fraction when asked for one.</div></div>
+    <div class="blk"><div class="lbl">Exam tip</div><div class="tip">Keep every intermediate fraction unsimplified with a common denominator until the very last line — simplifying early is where arithmetic mistakes creep in.</div></div>
+  </div>
+</section>
+
+<!-- ================= RANDOM VARIABLES ================= -->
+<section class="section" id="randomvars">
+  <div class="section-head">
+    <h2>Random Variables &amp; Distributions <span class="priority low">Lower priority for Test 3</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="randomvars"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <div class="blk"><div class="lbl">Note</div><div class="trap">Like Graphs &amp; Trees, this topic doesn't appear in either your Mock Test or Practice Quiz. Included for completeness from the lecture notes only.</div></div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body">A random variable X assigns a number to each outcome in the sample space. Its <b>probability distribution</b> lists every possible value with its probability, and must sum to 1.</div></div>
+    <div class="blk"><div class="lbl">Formula / rule</div><div class="formula-block">\(\displaystyle E[X]=\sum_x x\cdot P(X=x)\) &nbsp;(expected value — the long-run average)<br>\(\text{Var}(X)=E[X^2]-(E[X])^2\) &nbsp;(spread around the mean)<br>Binomial distribution (n trials, success prob p): \(P(X=k)=\binom nk p^k(1-p)^{n-k}\)</div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step">Fair die roll, X = value shown. \(E[X]=\frac16(1+2+3+4+5+6)=3.5\)</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Forgetting the distribution's probabilities must sum to exactly 1 — always check this before computing E[X] with given values.</div></div>
+  </div>
+</section>
+
+<!-- ================= GRAPHS ================= -->
+<section class="section" id="graphs">
+  <div class="section-head">
+    <h2>Graphs &amp; Trees <span class="priority low">Lower priority for Test 3</span></h2>
+    <label class="review-toggle"><input type="checkbox" data-review="graphs"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <div class="blk"><div class="lbl">Note</div><div class="trap">Neither the Mock Test nor the Practice Quiz includes a single graph/tree/probability-distribution question — every other topic in this course appears in both documents at least once. Treat this section as background only unless your tutor confirms Test 3 covers it.</div></div>
+    <div class="blk concept"><div class="lbl">Concept</div><div class="blk-body"><ul>
+      <li><b>Degree</b> of a vertex = number of edges touching it. Handshake lemma: \(\sum \deg(v) = 2|E|\).</li>
+      <li><b>Walk/trail/path</b>: a walk can repeat edges/vertices; a trail repeats no edge; a path repeats no vertex.</li>
+      <li><b>Tree</b> = connected graph with no cycles; a tree on \(n\) vertices has exactly \(n-1\) edges.</li>
+      <li><b>Bipartite graph</b>: vertices split into two sets with edges only between sets, never within.</li>
+      <li><b>Euler tour</b>: exists iff every vertex has even degree (and the graph is connected).</li>
+      <li><b>Hamiltonian path/cycle</b>: visits every <em>vertex</em> exactly once (contrast with Euler, which is about every <em>edge</em>).</li>
+      <li><b>Connected graph</b>: a path exists between every pair of vertices.</li>
+      <li><b>Spanning tree</b>: a tree that includes every vertex of the original graph, using a subset of its edges.</li>
+    </ul></div></div>
+    <div class="blk"><div class="lbl">Worked example</div><div class="example-box">
+      <div class="step"><b>Q</b>: A graph has 5 vertices with degrees 2, 2, 2, 3, 3. Does an Euler tour exist?</div>
+      <div class="step">Two vertices (degree 3) are odd — Euler tour requires <em>all</em> vertices even.</div>
+      <div class="step"><b>Final answer</b>: No Euler tour exists.</div>
+    </div></div>
+    <div class="blk"><div class="lbl">Common mistakes</div><div class="trap">Confusing Euler (edge-based) with Hamiltonian (vertex-based) tours — they have completely different existence conditions. Forgetting a tree must also be <em>connected</em>, not just acyclic — an acyclic but disconnected graph is a forest, not a tree.</div></div>
+  </div>
+</section>
+
+<!-- ================= COMMON TRAPS ================= -->
+<section class="section" id="traps">
+  <div class="section-head">
+    <h2>⚠️ Common Traps</h2>
+    <label class="review-toggle"><input type="checkbox" data-review="traps"> mark reviewed</label>
+  </div>
+  <div class="trap-grid">
+    <div class="trap-card searchable"><h4>C vs P vs stars-and-bars</h4>Re-derive from "does order matter / can it repeat" every single time — never pattern-match to a formula from memory alone.</div>
+    <div class="trap-card searchable"><h4>Converse of a function-composition rule</h4>"g∘f injective ⇒ f injective" is true; "⇒ g injective" is not. Test with a 2–3 element counterexample before picking an MCQ option.</div>
+    <div class="trap-card searchable"><h4>Sign of the triple-overlap term</h4>In 3-set inclusion–exclusion, the triple intersection is added back (+), not subtracted.</div>
+    <div class="trap-card searchable"><h4>∀ with ∧ instead of ⇒</h4>"All P are Q" is \(\forall x(P(x)\Rightarrow Q(x))\), never \(\forall x(P(x)\wedge Q(x))\) — the ∧ version wrongly claims everything in the universe is P.</div>
+    <div class="trap-card searchable"><h4>Big-O vs the exact formula</h4>Big-O wants the growth class (e.g. \(O(n^2)\)) with no constants — don't hand in the full closed-form sum as your final Big-O answer.</div>
+    <div class="trap-card searchable"><h4>Back-substitution sign errors</h4>In the Extended Euclidean Algorithm, always verify \(x,y\) by plugging back into \(ax+by\) before moving on.</div>
+    <div class="trap-card searchable"><h4>Bayes' denominator</h4>Always divide by the total probability \(P(B)\) computed via the law of total probability — never by a single branch's prior.</div>
+    <div class="trap-card searchable"><h4>Skipping the base case</h4>An induction proof with only the inductive step and no verified base case earns little to no credit.</div>
+    <div class="trap-card searchable"><h4>Unnamed equivalence steps</h4>Every line of a Boolean-algebra proof needs its law named — an unlabelled correct step still loses marks.</div>
+    <div class="trap-card searchable"><h4>φ(n) double-counting a repeated prime</h4>Use each <em>distinct</em> prime factor once in the product formula, regardless of its exponent in \(n\)'s factorisation.</div>
+  </div>
+</section>
+
+<!-- ================= FULL FORMULA SHEET ================= -->
+<section class="section" id="formulasheet">
+  <div class="section-head">
+    <h2>🧮 Full Formula &amp; Rule Sheet</h2>
+    <label class="review-toggle"><input type="checkbox" data-review="formulasheet"> mark reviewed</label>
+  </div>
+  <div class="card searchable">
+    <table class="ref">
+      <tr><th>Area</th><th>Rule</th></tr>
+      <tr><td>Sets</td><td>\(|\mathcal P(A)|=2^{|A|}\); &nbsp;\(A\triangle B=(A\setminus B)\cup(B\setminus A)\); &nbsp;De Morgan: \((A\cup B)'=A'\cap B'\), \((A\cap B)'=A'\cup B'\)</td></tr>
+      <tr><td>Inclusion–Exclusion</td><td>\(|A\cup B|=|A|+|B|-|A\cap B|\); 3-set version adds all pairwise, subtracts, then adds back the triple</td></tr>
+      <tr><td>Functions</td><td>Injective/surjective/bijective definitions; \(|B|^{|A|}\) total functions; \(n!\) bijections when \(|A|=|B|=n\); \(P(n,r)\) injections</td></tr>
+      <tr><td>Relations</td><td>Reflexive/symmetric/transitive; equivalence relation ⇒ partitions into equivalence classes</td></tr>
+      <tr><td>Propositional logic</td><td>\(P\Rightarrow Q\equiv\lnot P\vee Q\); De Morgan's; distributive; associative; commutative; idempotent; identity/domination; absorption; double negation</td></tr>
+      <tr><td>Predicate logic</td><td>\(\lnot\forall x P(x)\equiv\exists x\lnot P(x)\); \(\lnot\exists xP(x)\equiv\forall x\lnot P(x)\); ∀ pairs with ⇒, ∃ pairs with ∧</td></tr>
+      <tr><td>Sequences</td><td>Arithmetic: \(a_n=a_1+(n-1)d\). Geometric: \(a_n=a_1r^{n-1}\). Induction: base case + inductive step</td></tr>
+      <tr><td>Series</td><td>Arithmetic sum \(S_n=\frac n2(2a_1+(n-1)d)\); geometric sum \(S_n=\frac{a_1(1-r^n)}{1-r}\); infinite geometric (|r|&lt;1): \(\frac{a_1}{1-r}\)</td></tr>
+      <tr><td>Big-O</td><td>Keep the single highest-order term only, drop constants and lower-order terms</td></tr>
+      <tr><td>Number theory</td><td>Euclidean Algorithm → gcd; Extended version → \(ax+by=\gcd(a,b)\); inverse mod m exists iff \(\gcd(a,m)=1\); \(\varphi(n)=n\prod_{p\mid n}(1-\frac1p)\)</td></tr>
+      <tr><td>Counting</td><td>\(P(n,r)=\frac{n!}{(n-r)!}\) (order, no repeat); \(C(n,r)=\frac{n!}{r!(n-r)!}\) (no order, no repeat); \(n^r\) (order, repeat); \(C(n+r-1,r)\) (no order, repeat)</td></tr>
+      <tr><td>Probability</td><td>\(P(A\cup B)=P(A)+P(B)-P(A\cap B)\); \(P(A\mid B)=\frac{P(A\cap B)}{P(B)}\); total probability; Bayes' theorem</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ================= NIGHT BEFORE ================= -->
+<section class="section" id="nightbefore">
+  <div class="night">
+    <div class="section-head" style="border-color:rgba(255,255,255,.15);">
+      <h2>⚡ The Night-Before Page</h2>
+      <label class="review-toggle" style="color:#dfe4f0;"><input type="checkbox" data-review="nightbefore"> mark reviewed</label>
+    </div>
+    <p class="searchable" style="opacity:.85; margin-top:-4px;">One page. Everything above, distilled. If this is all you read tomorrow morning, it's enough.</p>
+    <div class="cheat-grid">
+      <div class="cheat-card searchable"><h4>Sets</h4><div class="f">\(|A\cup B\cup C|\): add three, subtract three pairs, add back the triple.</div><div class="f">Minimal-operation questions: match a single set or one intersection/difference first.</div></div>
+      <div class="cheat-card searchable"><h4>Functions</h4><div class="f">g∘f injective ⇒ f injective. g∘f surjective ⇒ g surjective. Nothing else is guaranteed.</div><div class="f">Bijections between equal-size sets: \(n!\).</div></div>
+      <div class="cheat-card searchable"><h4>Relations</h4><div class="f">Check reflexive, symmetric, transitive individually — never assume.</div><div class="f">Mod-k congruence is always an equivalence relation with k classes.</div></div>
+      <div class="cheat-card searchable"><h4>Propositional logic</h4><div class="f">Eliminate ⇒ first, then De Morgan, then simplify. Name every law.</div></div>
+      <div class="cheat-card searchable"><h4>Predicate logic</h4><div class="f">∀ + ⇒. ∃ + ∧. Add "y≠x" for comparisons "to all others".</div></div>
+      <div class="cheat-card searchable"><h4>Induction</h4><div class="f">Base case, then assume P(k), then derive P(k+1) using that assumption — don't skip the base case.</div></div>
+      <div class="cheat-card searchable"><h4>Series &amp; Big-O</h4><div class="f">\(S_n=\frac n2(2a_1+(n-1)d)\). Big-O = highest power of n only, no coefficient.</div></div>
+      <div class="cheat-card searchable"><h4>Number theory</h4><div class="f">EEA forward then back-substitute; verify \(ax+by=\gcd\). φ(n): one factor per distinct prime.</div></div>
+      <div class="cheat-card searchable"><h4>Counting</h4><div class="f">Ask "order? repeat?" — that alone picks the formula between P, C, \(n^r\), and stars-and-bars.</div></div>
+      <div class="cheat-card searchable"><h4>Probability</h4><div class="f">Tree diagram → multiply along branches → sum for total P(B) → divide the one relevant branch by that total for Bayes.</div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<button class="backtotop" id="backtotop">↑</button>
+
+<script>
+window.MathJax = null; // not used; KaTeX handles rendering
+document.addEventListener('DOMContentLoaded', function(){
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left:"$$", right:"$$", display:true},
+      {left:"\\[", right:"\\]", display:true},
+      {left:"\\(", right:"\\)", display:false}
+    ],
+    throwOnError:false
+  });
+
+  /* ---- Review checklist (localStorage) ---- */
+  var LS_KEY = 'mcd4760_notes_reviewed_v1';
+  var reviewed = {};
+  try{ reviewed = JSON.parse(localStorage.getItem(LS_KEY)) || {}; }catch(e){ reviewed = {}; }
+  var toggles = document.querySelectorAll('[data-review]');
+  var total = toggles.length;
+
+  function updateProgress(){
+    var count = Object.keys(reviewed).filter(function(k){return reviewed[k];}).length;
+    document.getElementById('progress-count').textContent = count + '/' + total;
+    var pct = total? Math.round(100*count/total) : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.querySelectorAll('nav.side a').forEach(function(a){
+      var id = a.getAttribute('data-id');
+      a.classList.toggle('reviewed', !!reviewed[id]);
+    });
+  }
+  toggles.forEach(function(cb){
+    var id = cb.getAttribute('data-review');
+    cb.checked = !!reviewed[id];
+    cb.addEventListener('change', function(){
+      reviewed[id] = cb.checked;
+      localStorage.setItem(LS_KEY, JSON.stringify(reviewed));
+      updateProgress();
+    });
+  });
+  updateProgress();
+
+  /* ---- Sidebar active-link highlighting on scroll ---- */
+  var sections = document.querySelectorAll('.section');
+  var navLinks = document.querySelectorAll('nav.side a');
+  function onScroll(){
+    var pos = window.scrollY + 120;
+    var current = sections[0] && sections[0].id;
+    sections.forEach(function(s){ if(s.offsetTop <= pos) current = s.id; });
+    navLinks.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('data-id') === current);
+    });
+    document.getElementById('backtotop').classList.toggle('show', window.scrollY > 500);
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+  document.getElementById('backtotop').addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  /* ---- Search: filters cards / rows, shows section only if it has a match ---- */
+  var searchBox = document.getElementById('search');
+  searchBox.addEventListener('input', function(){
+    var q = searchBox.value.trim().toLowerCase();
+    var anyVisibleGlobal = false;
+    sections.forEach(function(sec){
+      if(!q){
+        sec.classList.remove('hidden');
+        sec.querySelectorAll('.searchable').forEach(function(el){ el.classList.remove('hidden'); });
+        return;
+      }
+      var sectionHasMatch = false;
+      var items = sec.querySelectorAll('.searchable');
+      if(items.length){
+        items.forEach(function(el){
+          var match = el.textContent.toLowerCase().indexOf(q) !== -1;
+          el.classList.toggle('hidden', !match);
+          if(match) sectionHasMatch = true;
+        });
+      } else {
+        sectionHasMatch = sec.textContent.toLowerCase().indexOf(q) !== -1;
+      }
+      sec.classList.toggle('hidden', !sectionHasMatch);
+      if(sectionHasMatch) anyVisibleGlobal = true;
+    });
+  });
+});
+</script>
+</body>
+</html>
