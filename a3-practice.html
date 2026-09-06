@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCD4760 — Test 3 Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root{
+    --bg:#f4f6f9;
+    --surface:#ffffff;
+    --surface2:#eef1f6;
+    --border:#d7dee7;
+    --border-soft:#e6eaf1;
+    --text:#1c222b;
+    --text-dim:#5b6472;
+    --text-faint:#8891a0;
+    --terracotta:#1568c9;
+    --terracotta-bright:#1e7ee0;
+    --terracotta-dim:#0d4a91;
+    --teal:#1e8e5a;
+    --teal-bright:#22a367;
+    --teal-dim:#166b45;
+    --danger:#c0392b;
+    --danger-bright:#d9483a;
+    --danger-dim:#8e2a1f;
+    --danger-bg:#fbeae8;
+    --ok-bg:#e9f7ef;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    min-height:100vh;
+  }
+  h1,h2,h3,h4{
+    font-family:'Inter', sans-serif;
+    font-weight:700;
+    margin:0 0 0.4em 0;
+    letter-spacing:-0.2px;
+  }
+  a{color:var(--terracotta-bright);}
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:40px 24px 96px;
+  }
+  .masthead{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:20px 24px;
+    margin-bottom:28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:16px;
+    flex-wrap:wrap;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04);
+  }
+  .masthead .unit{
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    font-size:12px;
+    font-weight:600;
+    color:var(--terracotta-dim);
+    margin-bottom:6px;
+  }
+  .masthead h1{font-size:24px;}
+  .masthead .sub{color:var(--text-dim); font-size:13.5px; margin-top:2px;}
+  .nav-links{display:flex; gap:18px; font-size:14px;}
+  .nav-links button{
+    background:none;border:none;color:var(--text-dim);
+    font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;padding:0 0 3px;
+    border-bottom:2px solid transparent;
+  }
+  .nav-links button:hover, .nav-links button.active{color:var(--terracotta-dim); border-bottom-color:var(--terracotta);}
+
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* HOME */
+  .stat-row{
+    display:flex;
+    gap:12px;
+    margin:24px 0 32px;
+  }
+  .stat{
+    flex:1;
+    padding:16px 18px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04);
+  }
+  .stat .num{font-size:26px; font-weight:700; color:var(--terracotta-dim);}
+  .stat .label{font-size:12px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.7px; margin-top:2px; font-weight:600;}
+
+  .section-label{
+    font-size:12.5px; text-transform:uppercase; letter-spacing:1px;
+    color:var(--text-faint); font-weight:700; margin:32px 0 12px;
+  }
+  .topic-list{background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:4px 16px; box-shadow:0 1px 2px rgba(16,24,40,0.04);}
+  .topic-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:13px 0; border-bottom:1px solid var(--border-soft);
+    cursor:pointer;
+  }
+  .topic-row:last-child{border-bottom:none;}
+  .topic-row .t-name{display:flex; align-items:center; gap:10px; font-size:15px;}
+  .topic-row input[type=checkbox]{
+    width:17px;height:17px;accent-color:var(--terracotta);
+  }
+  .topic-row .t-stat{font-size:13px; color:var(--text-dim); font-variant-numeric:tabular-nums; display:flex; align-items:center;}
+  .accbar{width:70px; height:5px; border-radius:3px; background:var(--surface2); margin-left:10px; display:inline-block; vertical-align:middle; overflow:hidden;}
+  .accbar > span{display:block; height:100%; background:var(--teal-bright);}
+
+  .btnrow{display:flex; gap:12px; margin-top:28px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter', sans-serif;
+    font-size:14.5px; font-weight:600;
+    padding:11px 22px;
+    border-radius:6px;
+    border:1px solid transparent;
+    cursor:pointer;
+    background:var(--terracotta);
+    color:#ffffff;
+  }
+  .btn:hover{background:var(--terracotta-bright);}
+  .btn.secondary{
+    background:var(--surface); color:var(--text); border-color:var(--border);
+  }
+  .btn.secondary:hover{border-color:var(--text-faint); background:var(--surface2);}
+  .btn.teal{background:var(--teal);color:#ffffff;}
+  .btn.teal:hover{background:var(--teal-bright);}
+  .btn:disabled{opacity:0.4; cursor:not-allowed;}
+  .btn.small{padding:7px 14px; font-size:13px;}
+  .btn.link{background:none;color:var(--text-dim);border:none;padding:4px 0;text-decoration:underline;text-underline-offset:3px;font-weight:500;}
+  .btn.link:hover{color:var(--text);}
+
+  .empty-note{color:var(--text-faint); font-size:14px; font-style:italic; padding:10px 0 0;}
+
+  /* PRACTICE */
+  .progressline{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:13px; color:var(--text-dim); margin-bottom:18px; font-weight:500;
+  }
+  .progressline .track{
+    flex:1; height:6px; border-radius:3px; background:var(--border-soft); margin:0 16px; position:relative; overflow:hidden;
+  }
+  .progressline .track > span{position:absolute; left:0; top:0; height:100%; background:var(--terracotta); border-radius:3px;}
+
+  .qcard{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:30px 28px;
+    box-shadow:0 1px 3px rgba(16,24,40,0.06), 0 1px 2px rgba(16,24,40,0.04);
+  }
+  .qcard .topic-tag{
+    font-size:11.5px; text-transform:uppercase; letter-spacing:0.9px; font-weight:700;
+    color:var(--terracotta-dim); margin-bottom:10px;
+  }
+  .qcard .qtext{font-size:16.5px; margin-bottom:20px;}
+  .qcard .qtext p{margin:0 0 12px;}
+  .qcard .qtext ul, .qcard .qtext ol{margin:8px 0; padding-left:22px;}
+  .qcard table{border-collapse:collapse; margin:12px 0;}
+  .qcard table td, .qcard table th{border:1px solid var(--border); padding:6px 12px; text-align:center; font-size:14px;}
+  .marks-pill{
+    display:inline-block; font-size:11.5px; font-weight:600; color:var(--text-dim);
+    background:var(--surface2); border:1px solid var(--border); padding:3px 10px; border-radius:20px; margin-bottom:14px;
+  }
+
+  .opt{
+    display:flex; align-items:flex-start; gap:10px;
+    padding:12px 14px; border:1px solid var(--border); border-radius:6px;
+    margin-bottom:8px; cursor:pointer; font-size:15px; background:var(--surface);
+  }
+  .opt:hover{border-color:var(--text-faint); background:var(--surface2);}
+  .opt.selected{border-color:var(--terracotta); background:rgba(21,104,201,0.06);}
+  .opt input{margin-top:3px; accent-color:var(--terracotta);}
+  .opt.correct{border-color:var(--teal); background:var(--ok-bg);}
+  .opt.wrong-picked{border-color:var(--danger); background:var(--danger-bg);}
+
+  textarea, input[type=text]{
+    width:100%;
+    background:var(--surface);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    padding:11px 12px;
+    border-radius:6px;
+  }
+  textarea{min-height:110px; resize:vertical;}
+  input[type=text]:focus, textarea:focus{outline:none; border-color:var(--terracotta); box-shadow:0 0 0 3px rgba(21,104,201,0.12);}
+  .numinputs{display:flex; gap:10px; flex-wrap:wrap;}
+  .numinputs .nf{flex:1; min-width:120px;}
+  .numinputs label{display:block; font-size:12.5px; color:var(--text-dim); margin-bottom:4px; font-weight:500;}
+
+  .hintbox{font-size:13.5px; color:var(--text-dim); margin-top:10px; background:var(--surface2); border-left:3px solid var(--terracotta); padding:9px 12px; border-radius:0 6px 6px 0;}
+
+  .qactions{display:flex; gap:10px; margin-top:20px; align-items:center;}
+
+  .feedback{margin-top:22px; padding-top:20px; border-top:1px solid var(--border);}
+  .fb-head{font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:14px;}
+  .fb-head.ok{color:var(--teal-dim);}
+  .fb-head.bad{color:var(--danger-dim);}
+  .fb-block{margin-bottom:16px;}
+  .fb-block h4{font-size:12px; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-faint); margin-bottom:6px; font-weight:700;}
+  .fb-block .body{font-size:14.5px;}
+  .fb-block .body p{margin:0 0 10px;}
+  .your-vs-correct{display:flex; gap:18px; margin-bottom:14px; flex-wrap:wrap;}
+  .yc-box{flex:1; min-width:200px; padding:10px 12px; border-radius:6px; font-size:14px;}
+  .yc-box.you{background:var(--danger-bg); border:1px solid var(--danger-dim);}
+  .yc-box.correct{background:var(--ok-bg); border:1px solid var(--teal-dim);}
+  .yc-box .lbl{font-size:11px; text-transform:uppercase; letter-spacing:0.6px; color:var(--text-dim); margin-bottom:3px; font-weight:700;}
+
+  .exam-tip{
+    background:#eef5fc; border-left:3px solid var(--terracotta);
+    padding:11px 14px; font-size:14px; border-radius:0 6px 6px 0;
+  }
+
+  .modelanswer{
+    background:var(--surface2); border:1px solid var(--border); border-radius:6px;
+    padding:16px; font-size:14.5px;
+  }
+  .selfcheck-buttons{display:flex; gap:10px; margin-top:16px;}
+
+  /* REVIEW */
+  .rev-item{border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-bottom:12px; background:var(--surface); box-shadow:0 1px 2px rgba(16,24,40,0.04);}
+  .rev-item summary{cursor:pointer; font-size:15px; font-weight:500; display:flex; justify-content:space-between; gap:10px;}
+  .rev-item summary .miss{color:var(--danger-dim); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;}
+  .rev-item .revbody{margin-top:14px; padding-top:14px; border-top:1px solid var(--border-soft);}
+
+  footer.note{margin-top:60px; padding-top:18px; border-top:1px solid var(--border); color:var(--text-faint); font-size:12.5px;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 80px;}
+    .masthead{padding:16px 18px;}
+    .masthead h1{font-size:20px;}
+    .stat-row{flex-wrap:wrap;}
+    .stat{flex:1 1 30%;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div>
+      <div class="unit">MCD4760 · Foundations of Computing</div>
+      <h1>Test 3 Practice</h1>
+      <div class="sub">Built from your practice quizzes &amp; lecture material</div>
+    </div>
+    <div class="nav-links">
+      <button data-nav="home" class="active">Home</button>
+      <button data-nav="review">Review Mistakes</button>
+    </div>
+  </div>
+
+  <!-- HOME VIEW -->
+  <div class="view active" id="view-home">
+
+    <div class="stat-row" id="statRow"></div>
+
+    <div class="section-label">Choose a set to practice</div>
+    <div class="topic-list" id="setList"></div>
+
+    <div class="btnrow">
+      <button class="btn secondary" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- PRACTICE VIEW -->
+  <div class="view" id="view-practice">
+    <div class="progressline">
+      <span id="progLabel">Question 1 of 10</span>
+      <div class="track"><span id="progFill" style="width:0%"></span></div>
+      <button class="btn link" id="btnExit">Exit to home</button>
+    </div>
+
+    <div class="qcard" id="qcard"></div>
+  </div>
+
+  <!-- REVIEW VIEW -->
+  <div class="view" id="view-review">
+    <h2 style="font-size:22px;">Review mistakes</h2>
+    <p style="color:var(--text-dim); font-size:14.5px;">Every question you've gotten wrong at least once, with the full explanation. Click one to reopen it and retry.</p>
+    <div id="reviewList" style="margin-top:20px;"></div>
+  </div>
+
+  <footer class="note">Progress is saved in this browser only (localStorage). Use Export/Reset from the home screen data if you switch devices.</footer>
+</div>
+
+<script>
+/* =========================================================
+   MATH UTILITIES
+========================================================= */
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function choice(arr){ return arr[randInt(0,arr.length-1)]; }
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=randInt(0,i); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function factorial(n){ let r=1; for(let i=2;i<=n;i++) r*=i; return r; }
+function nCr(n,r){ if(r<0||r>n) return 0; r=Math.min(r,n-r); let num=1,den=1; for(let i=0;i<r;i++){num*= (n-i); den*=(i+1);} return Math.round(num/den); }
+function factorize(n){
+  const f={}; let t=n;
+  for(let p=2;p*p<=t;p++){ while(t%p===0){ f[p]=(f[p]||0)+1; t/=p; } }
+  if(t>1) f[t]=(f[t]||0)+1;
+  return f;
+}
+function totient(n){
+  const f=factorize(n); let result=n;
+  for(const p in f){ result = result - result/parseInt(p); }
+  return Math.round(result);
+}
+function extGCD(a,b){
+  let old_r=a, r=b, old_s=1, s=0, old_t=0, t=1;
+  while(r!==0){
+    const q=Math.floor(old_r/r);
+    [old_r,r]=[r, old_r-q*r];
+    [old_s,s]=[s, old_s-q*s];
+    [old_t,t]=[t, old_t-q*t];
+  }
+  return {g:old_r, x:old_s, y:old_t};
+}
+function fmtSet(arr){ return "\\{" + arr.slice().sort((a,b)=>a-b).join(", ") + "\\}"; }
+
+function parseNum(str){
+  if(str===undefined || str===null) return NaN;
+  str=str.trim();
+  if(str==="") return NaN;
+  if(str.includes("/")){
+    const parts=str.split("/");
+    if(parts.length===2){
+      const n=parseFloat(parts[0]), d=parseFloat(parts[1]);
+      if(!isNaN(n) && !isNaN(d) && d!==0) return n/d;
+    }
+    return NaN;
+  }
+  const v=parseFloat(str);
+  return v;
+}
+function closeEnough(a,b,tol){ if(isNaN(a)) return false; return Math.abs(a-b) <= (tol!==undefined?tol:0.01); }
+function parseIntPair(str){
+  if(!str) return null;
+  const parts=str.split(/[, ]+/).filter(s=>s.length>0);
+  if(parts.length<2) return null;
+  const x=parseInt(parts[0],10), y=parseInt(parts[1],10);
+  if(isNaN(x)||isNaN(y)) return null;
+  return [x,y];
+}
+function parseNumTriple(str){
+  if(!str) return null;
+  const parts=str.split(/[, ]+/).filter(s=>s.length>0);
+  if(parts.length<3) return null;
+  const vals=parts.slice(0,3).map(p=>parseFloat(p));
+  if(vals.some(isNaN)) return null;
+  return vals;
+}
+
+/* =========================================================
+   TOPICS
+========================================================= */
+const TOPICS = [
+  {id:"sets", name:"Sets & Set Operations"},
+  {id:"funcrel", name:"Functions & Relations"},
+  {id:"proplogic", name:"Propositional Logic"},
+  {id:"predlogic", name:"Predicate Logic"},
+  {id:"prooftech", name:"Proof Techniques"},
+  {id:"sequences", name:"Sequences, Series & Induction"},
+  {id:"numtheory", name:"Number Theory"},
+  {id:"combin", name:"Combinatorics"},
+  {id:"prob", name:"Probability"}
+];
+
+/* =========================================================
+   GENERIC VARIANT GENERATORS
+========================================================= */
+
+// 3-set inclusion-exclusion complement generator
+function genSetComplement(){
+  const U = Array.from({length:10},(_,i)=>i+1);
+  function randSubset(size){ return shuffle(U).slice(0,size); }
+  const A = randSubset(randInt(4,6)), B = randSubset(randInt(3,5)), C = randSubset(randInt(3,5));
+  const setA=new Set(A), setB=new Set(B), setC=new Set(C);
+  const union = new Set([...A,...B,...C]);
+  const ab = A.filter(x=>setB.has(x));
+  const bc = B.filter(x=>setC.has(x));
+  const ac = A.filter(x=>setC.has(x));
+  const abc = ab.filter(x=>setC.has(x));
+  const answer = 10 - union.size;
+  return {A,B,C,ab,bc,ac,abc,unionSize:union.size,answer};
+}
+
+// affine linear recurrence a_n = c*a_{n-1} + d
+function genAffineRecurrence(){
+  const c = choice([2,3]);
+  const k = choice([1,2,3]);
+  const d = k*(c-1);
+  const a1 = randInt(2,6);
+  const a2=c*a1+d, a3=c*a2+d, a4=c*a3+d;
+  return {c,d,a1,a2,a3,a4,k};
+}
+
+// geometric recurrence a_n = r*a_{n-1}
+function genGeometricRecurrence(){
+  const r = choice([2,3,4]);
+  const a1 = choice([2,3,5]);
+  const a2=r*a1, a3=r*a2, a4=r*a3;
+  return {r,a1,a2,a3,a4};
+}
+
+// arithmetic series
+function genArithSeries(){
+  const a=randInt(2,9), d=randInt(2,5), n=randInt(8,20);
+  const T = n*a + (n*(n-1)/2)*d;
+  return {a,d,n,T};
+}
+
+// committee (ordered selection of 2 distinct roles)
+function genCommittee(){
+  const n = randInt(5,10);
+  const correct = n*(n-1);
+  const opts = shuffle([
+    {v:correct, l:`${n}\\times ${n-1}`},
+    {v:n*n, l:`${n}^2`},
+    {v:nCr(n,2), l:`\\binom{${n}}{2}`},
+    {v:Math.pow(2,n), l:`2^{${n}}`}
+  ]);
+  return {n, correct, opts};
+}
+
+// permutation task assignment n!
+function genPermTasks(){
+  const n = randInt(4,7);
+  const correct = factorial(n);
+  const opts = shuffle([
+    {v:correct, l:`${n}!`},
+    {v:Math.pow(n,n), l:`${n}^{${n}}`},
+    {v:Math.pow(2,n), l:`2^{${n}}`},
+    {v:nCr(n,2), l:`\\binom{${n}}{2}`}
+  ]);
+  return {n, correct, opts};
+}
+
+// license plate base^L
+function genLicensePlate(){
+  const L = randInt(3,5), base=10;
+  const correct = Math.pow(base,L);
+  const nPr = factorial(base)/factorial(base-L);
+  const opts = shuffle([
+    {v:correct, l:`${base}^{${L}}`},
+    {v:L*base, l:`${L}\\times ${base}`},
+    {v:nPr, l:`${base}\\times ${base-1}\\times \\cdots \\times ${base-L+1}`},
+    {v:nCr(base+L-1,L), l:`\\binom{${base}+${L}-1}{${L}}`}
+  ]);
+  return {L, base, correct, opts};
+}
+
+// inverse existence
+function genInverseExists(){
+  const a=randInt(20,150), b=randInt(20,150);
+  const g = extGCD(a,b).g;
+  const exists = g===1;
+  return {a,b,g,exists};
+}
+
+// totient
+function genTotient(){
+  const n = choice([28,36,44,48,54,60,63,66,72,75,84,90,96,98,100,108,120,132,144,150,162,180]);
+  const f = factorize(n);
+  const ans = totient(n);
+  return {n, f, ans};
+}
+
+// EEA
+function genEEA(){
+  const a = randInt(30,160), b = randInt(20,140);
+  const r = extGCD(a,b);
+  return {a,b,g:r.g};
+}
+
+// Bayes generic
+function genBayes(){
+  const pS = choice([0.6,0.65,0.7,0.75,0.8]);
+  const sens = choice([0.85,0.9,0.92,0.95]);
+  const fpr = choice([0.05,0.08,0.1,0.15,0.2]);
+  const pT = sens*pS + fpr*(1-pS);
+  const pSgivenT = (sens*pS)/pT;
+  return {pS,sens,fpr,pT:Math.round(pT*10000)/10000, pSgivenT:Math.round(pSgivenT*10000)/10000};
+}
+
+/* =========================================================
+   INDUCTION PROOF TEMPLATE BUILDERS
+========================================================= */
+function affineInductionProof(v){
+  const {c,d,a1,k} = v;
+  return `
+<p><strong>Claim:</strong> $a_n = (a_1+${k})\\cdot ${c}^{\\,n-1} - ${k}$ for all $n \\ge 1$, where $a_1=${a1}$, so $a_n=${a1+k}\\cdot ${c}^{\\,n-1}-${k}$.</p>
+<p><strong>Base case ($n=1$):</strong> the formula gives $${a1+k}\\cdot ${c}^{0}-${k} = ${a1+k}-${k} = ${a1}$, which matches $a_1=${a1}$. ✓</p>
+<p><strong>Inductive hypothesis:</strong> assume for some $j\\ge 1$ that $a_j = ${a1+k}\\cdot ${c}^{\\,j-1} - ${k}$.</p>
+<p><strong>Inductive step:</strong> using the recurrence $a_{j+1}=${c}a_j+${d}$:</p>
+<p>$a_{j+1} = ${c}\\left(${a1+k}\\cdot ${c}^{\\,j-1}-${k}\\right)+${d}$ &nbsp;(substitute the inductive hypothesis)</p>
+<p>$= ${a1+k}\\cdot ${c}^{\\,j} - ${c*k} + ${d}$ &nbsp;(distribute)</p>
+<p>$= ${a1+k}\\cdot ${c}^{\\,j} - ${k}$ &nbsp;(since $d=${k}(${c}-1)=${d}$, so $-${c*k}+${d}=-${k}$)</p>
+<p>$= ${a1+k}\\cdot ${c}^{\\,(j+1)-1} - ${k}$, which is exactly the claimed form with $n=j+1$. ✓</p>
+<p>By the principle of mathematical induction, the closed form holds for all $n\\ge 1$.</p>`;
+}
+function geometricInductionProof(v){
+  const {r,a1} = v;
+  return `
+<p><strong>Claim:</strong> $a_n = ${a1}\\cdot ${r}^{\\,n-1}$ for all $n\\ge 1$.</p>
+<p><strong>Base case ($n=1$):</strong> $${a1}\\cdot ${r}^{0} = ${a1}$, matching $a_1=${a1}$. ✓</p>
+<p><strong>Inductive hypothesis:</strong> assume $a_j = ${a1}\\cdot ${r}^{\\,j-1}$ for some $j\\ge 1$.</p>
+<p><strong>Inductive step:</strong> from the recurrence $a_{j+1}=${r}\\,a_j$:</p>
+<p>$a_{j+1} = ${r}\\cdot\\left(${a1}\\cdot ${r}^{\\,j-1}\\right) = ${a1}\\cdot ${r}^{\\,j} = ${a1}\\cdot ${r}^{\\,(j+1)-1}$, matching the claimed form with $n=j+1$. ✓</p>
+<p>By induction, $a_n=${a1}\\cdot ${r}^{\\,n-1}$ holds for all $n \\ge 1$.</p>`;
+}
+
+/* =========================================================
+   QUESTION BANK
+========================================================= */
+let Q = [];
+
+Q.push({
+  id:"set_expr", topic:"sets", marks:2, type:"selfcheck",
+  lecture:"Lesson 1.2.1–1.2.2 (Complement, set difference, intersection)",
+  prompt:`Given $U=\\{1,\\dots,10\\}$, $A=\\{1,3,5,7,9\\}$, $B=\\{2,3,5,7\\}$, $C=\\{1,2,5,8,9\\}$.
+  <br><br>Express $\\{3,7\\}$ using set operations on $A$, $B$, $C$, using the <em>minimum</em> number of operations.`,
+  hint:"Start by finding a set that already contains both 3 and 7 with nothing extra, then remove what's left.",
+  model:`<p>$A\\cap B = \\{3,5,7\\}$ already contains both 3 and 7, with only one extra element (5).</p>
+  <p>Remove it with a set difference: $(A\\cap B)-C = \\{3,5,7\\}-\\{1,2,5,8,9\\} = \\{3,7\\}$.</p>
+  <p>(Equivalently: $(A\\cap B)\\cap C' = \\{3,5,7\\}\\cap\\{3,4,6,7,10\\} = \\{3,7\\}$ — same number of operations.)</p>`,
+  concept:"Set operations (intersection, difference, complement) let you build any target subset of the universal set from named sets — the trick is finding the operation combination that isolates exactly the elements you want.",
+  examTip:"Compute the smallest useful intersection first, then check what's left over. One extra element usually means one more operation (a difference or a complement) will finish the job.",
+  variantOf:function(){
+    // {1,9}: (A∩C)-B
+    return {
+      prompt:`Using the same $U,A,B,C$: express $\\{1,9\\}$ using set operations on $A,B,C$, with the minimum number of operations.`,
+      model:`<p>$A\\cap C = \\{1,5,9\\}$ contains both 1 and 9, with one extra element (5).</p>
+      <p>$(A\\cap C)-B = \\{1,5,9\\}-\\{2,3,5,7\\} = \\{1,9\\}$.</p>`
+    };
+  }
+});
+
+Q.push({
+  id:"set_complement", topic:"sets", marks:5, type:"numeric",
+  lecture:"Lesson 8.1.1 (Inclusion–Exclusion)",
+  gen:function(){ return genSetComplement(); },
+  build:function(v){
+    this._v=v;
+    return {
+      prompt:`Universal set $U=\\{1,\\dots,10\\}$. Let $A=${fmtSet(v.A)}$, $B=${fmtSet(v.B)}$, $C=${fmtSet(v.C)}$.
+      <br><br>Find $|(A\\cup B\\cup C)'|$, the number of elements in $U$ that belong to <em>none</em> of $A,B,C$.`,
+      answer:v.answer
+    };
+  },
+  hint:"Use Inclusion–Exclusion to get |A∪B∪C| first, then subtract from |U|.",
+  explainCorrect:function(v){
+    return `<p>By Inclusion–Exclusion: $|A\\cup B\\cup C| = |A|+|B|+|C|-|A\\cap B|-|B\\cap C|-|A\\cap C|+|A\\cap B\\cap C|$
+    $= ${v.A.length}+${v.B.length}+${v.C.length}-${v.ab.length}-${v.bc.length}-${v.ac.length}+${v.abc.length} = ${v.unionSize}$.</p>
+    <p>So $|(A\\cup B\\cup C)'| = |U|-|A\\cup B\\cup C| = 10-${v.unionSize} = ${v.answer}$.</p>`;
+  },
+  explainWrong:function(v){
+    return `<p>The most common slip here is forgetting to add back $|A\\cap B\\cap C|$ at the end of Inclusion–Exclusion, or forgetting to subtract the union from $|U|$ at the last step (giving $|A\\cup B\\cup C|$ instead of its complement).</p>
+    <p><strong>Step-by-step:</strong></p>
+    <p>$|A\\cap B|=${v.ab.length}$, $|B\\cap C|=${v.bc.length}$, $|A\\cap C|=${v.ac.length}$, $|A\\cap B\\cap C|=${v.abc.length}$.</p>
+    <p>$|A\\cup B\\cup C| = ${v.A.length}+${v.B.length}+${v.C.length}-${v.ab.length}-${v.bc.length}-${v.ac.length}+${v.abc.length}=${v.unionSize}$.</p>
+    <p>$|(A\\cup B\\cup C)'| = 10-${v.unionSize}=${v.answer}$.</p>`;
+  },
+  concept:"Inclusion–Exclusion for three sets, and the complement rule |S'| = |U| - |S|.",
+  examTip:"Always write out the six-term Inclusion–Exclusion formula before plugging numbers in — it's easy to drop the '+|A∩B∩C|' term under time pressure."
+});
+
+Q.push({
+  id:"func_compose", topic:"funcrel", marks:1, type:"mcq",
+  lecture:"Lesson 2.1.3 (Injection/Surjection/Bijection), 2.2.1 (Composition)",
+  prompt:`Let $f:A\\to B$ and $g:B\\to C$ be functions. Which statement is <strong>always</strong> true?`,
+  options:[
+    {text:"If $g\\circ f$ is surjective, then $f$ is surjective.", correct:false,
+     why:"This gets the direction backwards — surjectivity of the composite constrains $g$'s coverage of $C$, not $f$'s coverage of $B$. $f$ can easily fail to be surjective onto $B$ while $g\\circ f$ still covers all of $C$."},
+    {text:"If $g\\circ f$ is injective, then $f$ is injective.", correct:true},
+    {text:"If $f$ is surjective and $g$ is injective, then $g\\circ f$ is bijective.", correct:false,
+     why:"Surjective + injective on different functions doesn't combine into bijective for the composite — you'd need $f$ injective and $g$ surjective (among other conditions) for that kind of guarantee, and even then bijectivity isn't automatic without more structure."},
+    {text:"If $g\\circ f$ is bijective, then both $f$ and $g$ are bijective.", correct:false,
+     why:"A bijective composite only forces $f$ to be injective and $g$ to be surjective — not full bijectivity of each. $f$ could fail to be surjective onto $B$, and $g$ could fail to be injective on the part of $B$ outside $f$'s range."}
+  ],
+  explainCorrect:`<p>If $x_1\\ne x_2$ but $f(x_1)=f(x_2)$, then $g(f(x_1))=g(f(x_2))$, so $g\\circ f$ would not be injective. Contrapositive: if $g\\circ f$ is injective, $f$ must be injective.</p>`,
+  concept:"Injections, surjections and how properties of a composite function $g\\circ f$ constrain (but don't fully determine) the properties of $f$ and $g$ individually.",
+  examTip:"Memorise the two 'always true' directions: $g\\circ f$ injective ⟹ $f$ injective, and $g\\circ f$ surjective ⟹ $g$ surjective. The other directions need extra conditions.",
+  variantMcq:function(){
+    return {
+      prompt:`Let $f:A\\to B$ and $g:B\\to C$ be functions. Which statement is <strong>always</strong> true?`,
+      options:[
+        {text:"If $g\\circ f$ is surjective, then $g$ is surjective.", correct:true},
+        {text:"If $g\\circ f$ is surjective, then $f$ is surjective.", correct:false, why:"$f$ need not cover all of $B$ — only the elements of $B$ that $f$ misses need to also be 'unreachable inputs' for $g$ to still land everywhere in $C$."},
+        {text:"If $g\\circ f$ is injective, then $g$ is injective.", correct:false, why:"$g$ only needs to be injective on the image of $f$, not on all of $B$ — it can still collapse elements outside that image."},
+        {text:"If $f$ is injective and $g$ is surjective, then $g\\circ f$ is bijective.", correct:false, why:"This mixes properties that don't combine automatically for the composite — you'd need $f$ surjective onto $B$ and $g$ injective for a bijectivity guarantee from these two facts alone."}
+      ],
+      explainCorrect:`<p>If $g\\circ f$ hits every element of $C$, then in particular $g$ (applied to the range of $f$, a subset of $B$) already reaches every element of $C$ — so $g$ itself must be surjective.</p>`
+    };
+  }
+});
+
+Q.push({
+  id:"func_inverse", topic:"funcrel", marks:1, type:"mcq",
+  lecture:"Lesson 2.1.4 (Inverse functions), 2.2.1 (Composition)",
+  prompt:`Suppose $f:A\\to B$ is a bijection, with inverse $f^{-1}$. Which statement is <strong>not</strong> true?`,
+  options:[
+    {text:"$f^{-1}\\circ f: A\\to A$ is an identity function.", correct:false, why:"This one is true — applying $f$ then undoing it with $f^{-1}$ always returns you to your starting point in $A$."},
+    {text:"$f\\circ f^{-1}: B\\to B$ is an identity function.", correct:false, why:"This one is also true, by the same logic applied in the other direction on $B$."},
+    {text:"$f^{-1}\\circ f$ is a binary relation on $B\\times B$.", correct:true},
+    {text:"$f\\circ f^{-1}$ is a binary relation on $A\\times A$.", correct:false, why:"This is the false one you should have picked instead — $f\\circ f^{-1}$ maps $B\\to B$, so it's a relation on $B\\times B$, not $A\\times A$."}
+  ],
+  explainCorrect:`<p>$f^{-1}\\circ f$ has domain and codomain $A$ (you feed in an element of $A$, apply $f$ to land in $B$, then $f^{-1}$ to land back in $A$). So it's a relation on $A\\times A$, not $B\\times B$ — that's why option C is the false statement.</p>`,
+  concept:"Composing a bijection with its inverse: keep careful track of which set each composite function actually maps between.",
+  examTip:"When composing $f^{-1}\\circ f$ vs $f\\circ f^{-1}$, always write out domain → codomain for each stage — it's easy to swap $A$ and $B$ under time pressure."
+});
+
+Q.push({
+  id:"rel_mod3", topic:"funcrel", marks:2, type:"mcq", multi:true,
+  lecture:"Lesson 2.3.2–2.3.3 (Properties of relations, Equivalence relations)",
+  prompt:`Let $A=\\{1,2,3,4,5,6\\}$ and $R=\\{(a,b): a,b\\in A,\\ a\\equiv b \\pmod 3\\}$ — i.e. $a$ and $b$ leave the same remainder mod 3. Which properties does $R$ have? (select all that apply)`,
+  options:[
+    {text:"$R$ is reflexive.", correct:true},
+    {text:"$R$ is symmetric.", correct:true},
+    {text:"$R$ is transitive.", correct:true},
+    {text:"$R$ is neither reflexive, symmetric, nor transitive.", correct:false, why:"Congruence mod $n$ always has all three properties — this option would only be right if at least one property failed, which it doesn't here."}
+  ],
+  explainCorrect:`<p>Congruence mod 3 is a textbook <strong>equivalence relation</strong>: every element leaves the same remainder as itself (reflexive); if $a$ and $b$ share a remainder, so do $b$ and $a$ (symmetric); and if $a,b$ share a remainder and $b,c$ share a remainder, then $a,c$ do too (transitive). All three hold, so $R$ partitions $A$ into remainder classes $\\{3,6\\},\\{1,4\\},\\{2,5\\}$.</p>`,
+  concept:"Recognising an equivalence relation: reflexive + symmetric + transitive together, and congruence mod n as the standard example.",
+  examTip:"Whenever you see a relation defined by 'same remainder', 'same parity', or 'same value under some function', check whether it's secretly an equivalence relation — those three properties usually all hold at once."
+});
+
+Q.push({
+  id:"rel_explicit", topic:"funcrel", marks:2, type:"mcq", multi:true,
+  lecture:"Lesson 2.3.2 (Properties of Binary Relations)",
+  prompt:`Let $R$ be a relation on $A=\\{1,2,3\\}$: $R=\\{(1,1),(2,2),(3,3),(1,2),(2,1),(2,3),(3,2)\\}$. Which properties does $R$ have?`,
+  options:[
+    {text:"$R$ is reflexive.", correct:true},
+    {text:"$R$ is symmetric.", correct:true},
+    {text:"$R$ is transitive.", correct:false, why:"Transitivity requires that whenever $(a,b)$ and $(b,c)$ are in $R$, so is $(a,c)$. Here $(1,2)$ and $(2,3)$ are both in $R$, but $(1,3)$ is missing — so transitivity fails."},
+    {text:"$R$ is neither reflexive, symmetric, nor transitive.", correct:false, why:"$R$ is in fact both reflexive and symmetric — only transitivity fails."}
+  ],
+  explainCorrect:`<p><strong>Reflexive:</strong> $(1,1),(2,2),(3,3)$ are all present. ✓<br>
+  <strong>Symmetric:</strong> every pair $(a,b)$ has its reverse $(b,a)$ present too — $(1,2)/(2,1)$ and $(2,3)/(3,2)$. ✓<br>
+  <strong>Transitive:</strong> $(1,2)$ and $(2,3)$ are both in $R$, but $(1,3)\\notin R$, so transitivity fails. ✗</p>`,
+  concept:"Checking each relation property directly against the explicit list of pairs, rather than assuming a pattern.",
+  examTip:"For transitivity specifically, hunt for a 'chain' $(a,b),(b,c)$ and check the shortcut pair $(a,c)$ is present — that's the counterexample examiners build in."
+});
+
+Q.push({
+  id:"proof_cases", topic:"prooftech", marks:6, type:"selfcheck",
+  lecture:"Lesson 3.2.4 (Proof by cases)",
+  prompt:`Prove that for any integer $n$, the expression $n^2+n$ is always even.`,
+  hint:"Factor first: n² + n = n(n+1). What do you know about two consecutive integers?",
+  model:`<p>Note $n^2+n = n(n+1)$, the product of two <em>consecutive</em> integers, so exactly one of $n,\\,n+1$ is even.</p>
+  <p><strong>Case 1 — $n$ even:</strong> write $n=2k$. Then $n(n+1)=2k(2k+1)=2(2k^2+k)$, which is even since $2k^2+k$ is an integer.</p>
+  <p><strong>Case 2 — $n$ odd (so $n+1$ even):</strong> write $n=2k-1$. Then $n(n+1)=(2k-1)(2k)=2(2k^2-k)$, which is even since $2k^2-k$ is an integer.</p>
+  <p>In either case, $n(n+1)$ is even, so $n^2+n$ is always even. $\\blacksquare$</p>`,
+  concept:"Proof by cases: split into exhaustive, mutually exclusive scenarios (here: $n$ even vs. $n$ odd) and show the claim holds in each.",
+  examTip:"Whenever a claim involves 'n and n+1' or similar consecutive terms, factoring to reveal that structure — then splitting into parity cases — is usually the fastest route to a clean proof.",
+  variantOf:function(){
+    return {
+      prompt:`Prove that for any integer $n$, the expression $n^2-n$ is always even.`,
+      model:`<p>$n^2-n = n(n-1)$, the product of two consecutive integers, so exactly one is even.</p>
+      <p><strong>Case 1 — $n$ even:</strong> $n=2k \\Rightarrow n(n-1)=2k(2k-1)=2(2k^2-k)$, even.</p>
+      <p><strong>Case 2 — $n$ odd (so $n-1$ even):</strong> $n=2k+1 \\Rightarrow n(n-1)=(2k+1)(2k)=2(2k^2+k)$, even.</p>
+      <p>In either case $n(n-1)$ — and hence $n^2-n$ — is even. $\\blacksquare$</p>`
+    };
+  }
+});
+
+Q.push({
+  id:"bool_pqr", topic:"proplogic", marks:7, type:"selfcheck",
+  lecture:"Lesson 4.2.1 (Laws of Boolean algebra), 3.2.2 (Proof by symbolic manipulation)",
+  prompt:`Prove, using Boolean algebra (no truth tables), that $P\\Rightarrow(Q\\Rightarrow R)$ is logically equivalent to $(P\\wedge Q)\\Rightarrow R$. State the law used on each line.`,
+  hint:"Rewrite every ⇒ using the equivalence A⇒B ≡ ¬A∨B, then look for a De Morgan's Law application.",
+  model:`<p>$P\\Rightarrow(Q\\Rightarrow R)$</p>
+  <p>$\\equiv \\neg P \\vee (\\neg Q \\vee R)$ &nbsp;(implication law, applied twice)</p>
+  <p>$\\equiv \\neg P \\vee \\neg Q \\vee R$ &nbsp;(associativity — drop brackets)</p>
+  <p>$\\equiv \\neg(P\\wedge Q)\\vee R$ &nbsp;(De Morgan's Law on the first two terms)</p>
+  <p>$\\equiv (P\\wedge Q)\\Rightarrow R$ &nbsp;(implication law, in reverse)</p>`,
+  concept:"Symbolic Boolean-algebra proof: rewrite implications via ¬A∨B, then apply De Morgan's and associativity to reshape the expression.",
+  examTip:"Whenever you see nested implications, converting every ⇒ into ¬∨ form immediately is almost always the fastest opening move — it turns the problem into pure AND/OR/NOT manipulation.",
+  variantOf:function(){
+    return {
+      prompt:`Prove, using Boolean algebra, that $\\neg(P\\Rightarrow Q)$ is logically equivalent to $P\\wedge\\neg Q$.`,
+      model:`<p>$\\neg(P\\Rightarrow Q)$</p>
+      <p>$\\equiv \\neg(\\neg P \\vee Q)$ &nbsp;(implication law)</p>
+      <p>$\\equiv \\neg\\neg P \\wedge \\neg Q$ &nbsp;(De Morgan's Law)</p>
+      <p>$\\equiv P \\wedge \\neg Q$ &nbsp;(double negation)</p>`
+    };
+  }
+});
+
+Q.push({
+  id:"bool_demorgan", topic:"proplogic", marks:7, type:"selfcheck",
+  lecture:"Lesson 4.1.1 (De Morgan's Laws), 4.2.1 (Distributive Law)",
+  prompt:`Prove, using logical equivalences, that $\\neg((P\\wedge Q)\\vee\\neg R)$ is equivalent to $(\\neg P\\wedge R)\\vee(\\neg Q\\wedge R)$. State the law used at each step.`,
+  hint:"De Morgan's twice will get you to a clean conjunction — then the Distributive Law splits it apart.",
+  model:`<p>$\\neg((P\\wedge Q)\\vee\\neg R)$</p>
+  <p>$\\equiv \\neg(P\\wedge Q)\\wedge R$ &nbsp;(De Morgan's Law)</p>
+  <p>$\\equiv (\\neg P\\vee\\neg Q)\\wedge R$ &nbsp;(De Morgan's Law again)</p>
+  <p>$\\equiv (\\neg P\\wedge R)\\vee(\\neg Q\\wedge R)$ &nbsp;(Distributive Law)</p>`,
+  concept:"Chaining De Morgan's Law with the Distributive Law to move between an 'OR of ANDs' shape and an 'AND of ORs' shape.",
+  examTip:"When you see ¬(X∨Y) or ¬(X∧Y), apply De Morgan's immediately — it's almost always the first move, and questions often need it twice in a row.",
+  variantOf:function(){
+    return {
+      prompt:`Prove that $\\neg(P\\vee(Q\\wedge\\neg R))$ is equivalent to $\\neg P\\wedge(\\neg Q\\vee R)$.`,
+      model:`<p>$\\neg(P\\vee(Q\\wedge\\neg R))$</p>
+      <p>$\\equiv \\neg P \\wedge \\neg(Q\\wedge\\neg R)$ &nbsp;(De Morgan's Law)</p>
+      <p>$\\equiv \\neg P \\wedge (\\neg Q \\vee \\neg\\neg R)$ &nbsp;(De Morgan's Law again)</p>
+      <p>$\\equiv \\neg P \\wedge (\\neg Q \\vee R)$ &nbsp;(double negation)</p>`
+    };
+  }
+});
+
+Q.push({
+  id:"pred_proglang", topic:"predlogic", marks:10, type:"selfcheck",
+  lecture:"Lesson 5.1–5.2 (Existential/universal quantifiers)",
+  prompt:`Predicates: $P(x)$: $x$ is a programming language. $C(x)$: $x$ is compiled. $I(x)$: $x$ is interpreted. $N(x,y)$: $x$ is newer than $y$.
+  <br><br>Express:<br>
+  (a) Java is a compiled programming language.<br>
+  (b) All programming languages are either compiled or interpreted.<br>
+  (c) There exists a programming language that is newer than all other programming languages.`,
+  hint:"For (c): the structure is ∃X∀Y (... an inner condition that's true both when Y=X and when Y is a genuinely different language).",
+  model:`<p>(a) $P(\\text{Java})\\wedge C(\\text{Java})$</p>
+  <p>(b) $\\forall X\\,(P(X)\\Rightarrow(C(X)\\vee I(X)))$</p>
+  <p>(c) $\\exists X\\,\\forall Y\\,\\big(P(X)\\wedge((P(Y)\\wedge X\\ne Y)\\Rightarrow N(X,Y))\\big)$</p>`,
+  concept:"Translating natural-language quantified statements into predicate logic, especially the 'exists one that beats all others' pattern in (c), which needs the $X\\ne Y$ guard to avoid claiming a language is newer than itself.",
+  examTip:"For 'there exists something better than everything else' statements, always add an inequality guard ($X\\ne Y$) inside the universal quantifier — forgetting it makes the statement claim something is newer than itself, which is impossible and breaks the sentence.",
+  variantOf:function(){
+    return {
+      prompt:`Using the same predicates, express:<br>
+      (a) Python is an interpreted programming language.<br>
+      (b) Every compiled language is a programming language.<br>
+      (c) There exists a programming language that is older than all other programming languages (use $N$, remembering "older than" reverses the arguments of "newer than").`,
+      model:`<p>(a) $P(\\text{Python})\\wedge I(\\text{Python})$</p>
+      <p>(b) $\\forall X\\,(C(X)\\Rightarrow P(X))$</p>
+      <p>(c) $\\exists X\\,\\forall Y\\,\\big(P(X)\\wedge((P(Y)\\wedge X\\ne Y)\\Rightarrow N(Y,X))\\big)$ — "older than $Y$" is expressed as "$Y$ is newer than $X$", i.e. $N(Y,X)$.</p>`
+    };
+  }
+});
+
+Q.push({
+  id:"pred_scientist", topic:"predlogic", marks:10, type:"selfcheck",
+  lecture:"Lesson 5.1–5.2 (Quantifiers), 5.3.1 (Relationships between quantifiers)",
+  prompt:`$\\text{DiscoveredFirstElementIn}(X,Y)$: scientist $X$ discovered the first element in chemical group $Y$. Express:<br>
+  (a) Marie Curie discovered the first radioactive element.<br>
+  (b) Every chemical group has had some scientist discover its first element.<br>
+  (c) No scientist discovered the first element in more than one chemical group.`,
+  hint:"(c) is a uniqueness-style statement: for any scientist tied to two groups, those two groups must actually be the same group.",
+  model:`<p>(a) $\\text{DiscoveredFirstElementIn}(\\text{Marie Curie}, \\text{radioactive})$</p>
+  <p>(b) $\\forall Y\\,\\exists X\\,\\text{DiscoveredFirstElementIn}(X,Y)$</p>
+  <p>(c) $\\forall X\\,\\forall Y\\,\\forall Z\\,\\big(\\text{DiscoveredFirstElementIn}(X,Y)\\wedge\\text{DiscoveredFirstElementIn}(X,Z)\\big)\\Rightarrow (Y=Z)$</p>`,
+  concept:"Translating 'for every Y there is some X' (∀∃ order matters!) and uniqueness statements ('no X does two things') into predicate logic.",
+  examTip:"Watch quantifier order closely: '∀Y∃X ...' means each group can have a different discovering scientist, while '∃X∀Y ...' would wrongly claim one single scientist discovered the first element of every group.",
+  variantOf:function(){
+    return {
+      prompt:`$\\text{FirstToWin}(X,Y)$: athlete $X$ was the first person to win event $Y$. Express:<br>
+      (a) Usain Bolt was the first to win the 100m sprint.<br>
+      (b) Every event has had someone who was first to win it.<br>
+      (c) No athlete was first to win more than one event.`,
+      model:`<p>(a) $\\text{FirstToWin}(\\text{Usain Bolt}, \\text{100m sprint})$</p>
+      <p>(b) $\\forall Y\\,\\exists X\\,\\text{FirstToWin}(X,Y)$</p>
+      <p>(c) $\\forall X\\,\\forall Y\\,\\forall Z\\,\\big(\\text{FirstToWin}(X,Y)\\wedge\\text{FirstToWin}(X,Z)\\big)\\Rightarrow (Y=Z)$</p>`
+    };
+  }
+});
+
+Q.push({
+  id:"recur_affine", topic:"sequences", marks:10, type:"combo",
+  lecture:"Lesson 6.1.1 (Recursive definitions to formulas), 3.3.1 (Proof by Mathematical Induction)",
+  gen:function(){ return genAffineRecurrence(); },
+  build:function(v){
+    this._v=v;
+    return {
+      prompt:`A sequence is defined by $a_1=${v.a1}$, and $a_n=${v.c}a_{n-1}+${v.d}$ for $n\\ge 2$.<br><br>
+      <strong>(a)</strong> Compute $a_2,a_3,a_4$.<br>
+      <strong>(b)</strong> State a closed-form expression for $a_n$, and prove it by induction.`,
+      numericAnswer:[v.a2,v.a3,v.a4]
+    };
+  },
+  hint:"Just apply the recurrence three times for part (a). For (b), try guessing a_n = A·c^(n-1) − k for constants A and k.",
+  explainCorrect:function(v){
+    return `<p>$a_2=${v.c}(${v.a1})+${v.d}=${v.a2}$, &nbsp;$a_3=${v.c}(${v.a2})+${v.d}=${v.a3}$, &nbsp;$a_4=${v.c}(${v.a3})+${v.d}=${v.a4}$.</p>
+    <p><strong>Closed form:</strong> $a_n = ${v.a1+v.k}\\cdot ${v.c}^{\\,n-1} - ${v.k}$.</p>
+    ${affineInductionProof(v)}`;
+  },
+  explainWrong:function(v){
+    return `<p>The most common slip is applying the recurrence to the wrong index (e.g. computing $a_2$ from $a_2$ instead of $a_1$), or dropping the constant term $+${v.d}$ partway through.</p>
+    <p><strong>Step-by-step:</strong> $a_2=${v.c}\\times ${v.a1}+${v.d}=${v.a2}$. Then $a_3=${v.c}\\times ${v.a2}+${v.d}=${v.a3}$. Then $a_4=${v.c}\\times ${v.a3}+${v.d}=${v.a4}$.</p>
+    <p><strong>Closed form:</strong> $a_n=${v.a1+v.k}\\cdot ${v.c}^{\\,n-1}-${v.k}$.</p>
+    ${affineInductionProof(v)}`;
+  },
+  concept:"Turning a linear (affine) recurrence a_n = c·a_{n-1} + d into a closed form, then confirming it by mathematical induction.",
+  examTip:"For a_n = c·a_{n-1} + d, guess a closed form of the shape A·c^(n-1) − k, where k = d/(c−1) — then just verify it with induction rather than deriving it from scratch under time pressure."
+});
+
+Q.push({
+  id:"recur_geom", topic:"sequences", marks:10, type:"combo",
+  lecture:"Lesson 6.1.1 (Recursive definitions), 3.3.1 (Induction)",
+  gen:function(){ return genGeometricRecurrence(); },
+  build:function(v){
+    this._v=v;
+    return {
+      prompt:`A quantity doubles-or-more each period: $a_1=${v.a1}$, and $a_n=${v.r}\\,a_{n-1}$ for $n>1$.<br><br>
+      <strong>(a)</strong> Compute $a_2,a_3,a_4$.<br>
+      <strong>(b)</strong> Find a closed form for $a_n$ and prove it by induction.`,
+      numericAnswer:[v.a2,v.a3,v.a4]
+    };
+  },
+  hint:"This is a pure geometric sequence — a_n = a_1 × (common ratio)^(n−1).",
+  explainCorrect:function(v){
+    return `<p>$a_2=${v.r}\\times ${v.a1}=${v.a2}$, $a_3=${v.r}\\times ${v.a2}=${v.a3}$, $a_4=${v.r}\\times ${v.a3}=${v.a4}$.</p>
+    <p><strong>Closed form:</strong> $a_n=${v.a1}\\cdot ${v.r}^{\\,n-1}$.</p>
+    ${geometricInductionProof(v)}`;
+  },
+  explainWrong:function(v){
+    return `<p>A common mistake is using $a_n=a_1\\cdot r^{n}$ instead of $r^{\\,n-1}$ — check the base case ($n=1$) always gives exactly $a_1$, not $a_1\\cdot r$.</p>
+    <p>$a_2=${v.r}\\times ${v.a1}=${v.a2}$, $a_3=${v.r}\\times ${v.a2}=${v.a3}$, $a_4=${v.r}\\times ${v.a3}=${v.a4}$.</p>
+    <p><strong>Closed form:</strong> $a_n=${v.a1}\\cdot ${v.r}^{\\,n-1}$.</p>
+    ${geometricInductionProof(v)}`;
+  },
+  concept:"Geometric recurrences a_n = r·a_{n-1} have closed form a_n = a_1·r^(n-1) — the classic case behind compound growth (and the mold/area example from the practice set).",
+  examTip:"Always sanity-check a closed form at n=1 before writing the full induction proof — if it doesn't reduce to a_1 exactly, the exponent is off by one."
+});
+
+Q.push({
+  id:"arith_series", topic:"sequences", marks:7, type:"numeric",
+  lecture:"Lesson 6.3.1 (Finite arithmetic series), 6.2.2 (Big-O)",
+  gen:function(){ return genArithSeries(); },
+  build:function(v){
+    this._v=v;
+    return {
+      prompt:`An algorithm performs $${v.a}$ operations at step 1, and increases by $${v.d}$ operations at each subsequent step. Let $f_n$ be the operations at step $n$ and $T(n)=\\sum_{i=1}^n f_i$.<br><br>
+      Compute $T(${v.n})$, the total number of operations over the first $${v.n}$ steps.`,
+      answer:v.T
+    };
+  },
+  hint:"f_n is an arithmetic sequence with first term a and common difference d — use the arithmetic series sum formula T(n) = na + n(n−1)d/2.",
+  explainCorrect:function(v){
+    return `<p>$f_n = ${v.a}+${v.d}(n-1)$, an arithmetic sequence with $a=${v.a}$, $d=${v.d}$.</p>
+    <p>$T(n) = na + \\dfrac{n(n-1)}{2}d = ${v.n}(${v.a}) + \\dfrac{${v.n}\\times ${v.n-1}}{2}(${v.d}) = ${v.n*v.a} + ${(v.n*(v.n-1)/2)*v.d} = ${v.T}$.</p>
+    <p>Regardless of the specific $a,d$, $T(n)$ is a quadratic in $n$, so $T(n)=O(n^2)$.</p>`;
+  },
+  explainWrong:function(v){
+    return `<p>A common mistake is using $\\frac{n(n+1)}{2}$ (the formula for summing $1..n$) instead of the general arithmetic series formula $na+\\frac{n(n-1)}{2}d$, or mixing up $a$ (the first term) with $d$ (the common difference).</p>
+    <p><strong>Step-by-step:</strong> $T(${v.n}) = ${v.n}\\times ${v.a} + \\dfrac{${v.n}\\times ${v.n-1}}{2}\\times ${v.d} = ${v.n*v.a}+${(v.n*(v.n-1)/2)*v.d} = ${v.T}$.</p>`;
+  },
+  concept:"The finite arithmetic series sum formula T(n) = na + n(n−1)d/2, and recognising that any arithmetic-growth algorithm runs in O(n²) total operations.",
+  examTip:"Big-O of an arithmetic series total is always O(n²), no matter what the first term or common difference are — don't recompute it from scratch each time, just recognise the pattern."
+});
+
+Q.push({
+  id:"committee", topic:"combin", marks:1, type:"mcq",
+  lecture:"Lesson 8.1.3 (Ordered selection)",
+  gen:function(){ return genCommittee(); },
+  build:function(v){
+    this._v=v;
+    return {
+      prompt:`A group of $${v.n}$ people wants to form a committee with a chairperson and a secretary (no one can hold both roles). How many different committee arrangements are there?`,
+      options:v.opts
+    };
+  },
+  hint:"The two roles are distinct, so this is an ordered selection of 2 people from n.",
+  explainCorrect:function(v){ return `<p>Choose the chairperson first ($${v.n}$ options), then the secretary from those remaining ($${v.n-1}$ options): $${v.n}\\times ${v.n-1} = ${v.correct}$. This is ordered selection because the two roles are distinguishable — swapping who holds which role gives a different arrangement.</p>`; },
+  explainWrong:function(v,picked){
+    let extra = "";
+    if(picked && picked.l.includes("binom")) extra = "<p>You picked a combination formula — combinations are for when order/role doesn't matter (e.g. choosing 2 people for an unordered committee with no distinct roles). Here the roles are distinct, so order matters.</p>";
+    else if(picked && picked.l.includes("^2")) extra = "<p>Squaring n would double-count the case where the same person is chosen for both roles, which isn't allowed here.</p>";
+    else if(picked && picked.l.includes("2^")) extra = "<p>$2^n$ counts subsets/binary choices, not an ordered selection of 2 distinct people from n — it doesn't match this scenario at all.</p>";
+    return extra + `<p><strong>Correct approach:</strong> $${v.n}$ choices for chairperson $\\times$ $${v.n-1}$ remaining choices for secretary $= ${v.correct}$.</p>`;
+  },
+  concept:"Ordered selection (the 'product rule' for distinct sequential roles) versus unordered combinations.",
+  examTip:"Whenever a counting problem assigns distinct roles/positions, multiply falling factorials (n, then n−1, then n−2, ...) rather than reaching for a binomial coefficient."
+});
+
+Q.push({
+  id:"bookshelf", topic:"combin", marks:4, type:"selfcheck",
+  lecture:"Lesson 8.2.1 (Unordered selection without replacement), 8.1.3 (Ordered selection)",
+  prompt:`A bookshelf has 8 spaces. A collector has 5 different maths textbooks and 6 different CS textbooks. Write an expression for the number of ways to fill all 8 spaces (order matters) using these 11 books, if at least 2 maths and at least 3 CS textbooks must be included.`,
+  hint:"First list which (maths-count, CS-count) pairs are even possible given the 'at least' constraints and the total of 8 spaces — then combine choosing books with arranging them.",
+  model:`<p>For a valid split of $m$ maths and $c$ CS books ($m+c=8$, $m\\ge2$, $c\\ge3$): choose $\\binom{5}{m}$ maths books, $\\binom{6}{c}$ CS books, then arrange all 8 chosen books in $8!$ ways.</p>
+  <p>Valid $(m,c)$ pairs: $(2,6),(3,5),(4,4),(5,3)$.</p>
+  <p>Total $= 8!\\times\\big(\\binom{5}{2}\\binom{6}{6}+\\binom{5}{3}\\binom{6}{5}+\\binom{5}{4}\\binom{6}{4}+\\binom{5}{5}\\binom{6}{3}\\big)$.</p>`,
+  concept:"Combining unordered selection (choosing which books) with ordered arrangement (placing them on distinguishable shelf spaces) — and enumerating all valid splits under 'at least' constraints.",
+  examTip:"For 'at least' constraints across two categories that must sum to a fixed total, list every valid split explicitly before writing the final sum — it's easy to miss a boundary case like using all of one category.",
+  variantOf:function(){
+    return {
+      prompt:`A shelf has 7 spaces. A collector has 4 different maths textbooks and 7 different CS textbooks. Fill all 7 spaces (order matters) using at least 2 maths and at least 3 CS textbooks.`,
+      model:`<p>Valid $(m,c)$ with $m+c=7$, $m\\ge2$ (and $m\\le4$), $c\\ge3$: $(2,5),(3,4),(4,3)$.</p>
+      <p>Total $= 7!\\times\\big(\\binom{4}{2}\\binom{7}{5}+\\binom{4}{3}\\binom{7}{4}+\\binom{4}{4}\\binom{7}{3}\\big)$.</p>`
+    };
+  }
+});
+
+Q.push({
+  id:"perm_tasks", topic:"combin", marks:1, type:"mcq",
+  lecture:"Lesson 8.1.3 (Ordered selection)",
+  gen:function(){ return genPermTasks(); },
+  build:function(v){
+    this._v=v;
+    return {
+      prompt:`A project manager assigns $${v.n}$ distinct tasks to $${v.n}$ different employees, one task each. In how many ways can this be done?`,
+      options:v.opts
+    };
+  },
+  hint:"Each employee's task assignment removes one task from the remaining pool — think falling factorial down to zero.",
+  explainCorrect:function(v){ return `<p>The first employee can get any of $${v.n}$ tasks, the next any of the remaining $${v.n-1}$, and so on down to 1: $${v.n}\\times(${v.n}-1)\\times\\cdots\\times1 = ${v.n}!=${v.correct}$.</p>`; },
+  explainWrong:function(v){ return `<p><strong>Correct approach:</strong> this is a full permutation of $${v.n}$ tasks among $${v.n}$ employees, so the count is $${v.n}!=${v.correct}$ — not $n^n$ (which would allow repeats) or $2^n$ (which isn't the right structure for a one-to-one assignment at all).</p>`; },
+  concept:"Assigning n distinct items to n distinct recipients, one each, is a permutation: n!.",
+  examTip:"Whenever every item must go to a different recipient with no repeats and no leftovers, think n! (permutation), not n^n (which allows repeats)."
+});
+
+Q.push({
+  id:"license_plate", topic:"combin", marks:1, type:"mcq",
+  lecture:"Lesson 8.1.2 (Selection with replacement)",
+  gen:function(){ return genLicensePlate(); },
+  build:function(v){
+    this._v=v;
+    return {
+      prompt:`A license plate has $${v.L}$ characters, each any digit 0–9 (digits may repeat, order matters). How many distinct plates are possible?`,
+      options:v.opts
+    };
+  },
+  hint:"Each of the L positions is an independent, unrestricted choice from 10 digits — that's the product rule with repetition allowed.",
+  explainCorrect:function(v){ return `<p>Each of the $${v.L}$ positions independently has $${v.base}$ possible digits (repeats allowed), so by the product rule: $${v.base}^{${v.L}} = ${v.correct}$.</p>`; },
+  explainWrong:function(v){ return `<p><strong>Correct approach:</strong> since digits can repeat, each position is an independent choice of $${v.base}$, giving $${v.base}^{${v.L}}=${v.correct}$. Using $${v.base}\\times(${v.base}-1)\\times\\cdots$ would be wrong here because that assumes digits <em>can't</em> repeat.</p>`; },
+  concept:"Selection with replacement: when repeats are allowed, use base^positions rather than a falling factorial.",
+  examTip:"The phrase 'may repeat' is the signal to use base^n (selection with replacement) instead of the permutation form base×(base−1)×... ."
+});
+
+Q.push({
+  id:"totient", topic:"numtheory", marks:3, type:"numeric",
+  lecture:"Lesson 7.2.4 (Euler totient function)",
+  gen:function(){ return genTotient(); },
+  build:function(v){
+    this._v=v;
+    return {
+      prompt:`Compute $\\varphi(${v.n})$, Euler's totient function (the count of positive integers $\\le ${v.n}$ that are coprime to $${v.n}$). Show your working using prime factorisation.`,
+      answer:v.ans
+    };
+  },
+  hint:"Factorise n into primes first, then apply φ(n) = n·∏(1 − 1/p) over the distinct primes p dividing n.",
+  explainCorrect:function(v){
+    const primes=Object.keys(v.f);
+    const factStr = primes.map(p=>`${p}${v.f[p]>1?"^{"+v.f[p]+"}":""}`).join("\\times");
+    const factorTerms = primes.map(p=>`\\left(1-\\tfrac{1}{${p}}\\right)`).join("");
+    return `<p>$${v.n} = ${factStr}$, with distinct prime factors: $${primes.join(", ")}$.</p>
+    <p>$\\varphi(${v.n}) = ${v.n}\\,${factorTerms} = ${v.ans}$.</p>`;
+  },
+  explainWrong:function(v){
+    const primes=Object.keys(v.f);
+    const factStr = primes.map(p=>`${p}${v.f[p]>1?"^{"+v.f[p]+"}":""}`).join("\\times");
+    const factorTerms = primes.map(p=>`\\left(1-\\tfrac{1}{${p}}\\right)`).join("");
+    return `<p>A common mistake is using a repeated prime factor twice in the product (e.g. treating $2^3$ as contributing $(1-\\frac12)$ twice) — each <em>distinct</em> prime contributes its factor only once, regardless of its exponent.</p>
+    <p><strong>Step-by-step:</strong> $${v.n}=${factStr}$. Distinct primes: $${primes.join(", ")}$. $\\varphi(${v.n})=${v.n}${factorTerms}=${v.ans}$.</p>`;
+  },
+  concept:"Euler's totient function via prime factorisation: φ(n) = n·∏(1 − 1/p) over distinct primes p | n.",
+  examTip:"Only use each distinct prime once in the product formula, no matter its exponent in the factorisation — φ(2³) still only contributes one factor of (1 − 1/2)."
+});
+
+Q.push({
+  id:"eea", topic:"numtheory", marks:7, type:"numeric",
+  lecture:"Lesson 7.1.2 (The Euclidean algorithm)",
+  gen:function(){ return genEEA(); },
+  build:function(v){
+    this._v=v;
+    return {
+      prompt:`Use the Extended Euclidean Algorithm to find integers $x,y$ such that $${v.a}x+${v.b}y=\\gcd(${v.a},${v.b})=${v.g}$. Enter as "x, y".`,
+      checkPair:true
+    };
+  },
+  hint:"Run the Euclidean algorithm forward to find the gcd, then back-substitute the remainders — or use the tabular (a,x,y)/(b,z,w) method from lecture.",
+  explainCorrect:function(v){
+    return `<p>Running the Euclidean algorithm on $${v.a}$ and $${v.b}$ gives $\\gcd(${v.a},${v.b})=${v.g}$. Any pair $(x,y)$ with $${v.a}x+${v.b}y=${v.g}$ is accepted — solutions aren't unique (they differ by multiples of $(${v.b}/${v.g},\\,-${v.a}/${v.g})$), so your app-checked answer just verifies the equation holds exactly.</p>`;
+  },
+  explainWrong:function(v){
+    return `<p>Your $x,y$ don't satisfy $${v.a}x+${v.b}y=${v.g}$. The most common errors are a sign flip on one back-substitution step, or stopping one row too early/late in the back-substitution table.</p>
+    <p><strong>Method:</strong> track $(a,x,y)$ and $(b,z,w)$ so that $a=${v.a}\\cdot1+${v.b}\\cdot0$ style bookkeeping holds throughout; at each step replace the larger pair using $q=\\lfloor a/b\\rfloor$, until the remainder hits 0. The second-to-last pair gives your $(x,y)$.</p>`;
+  },
+  concept:"The Extended Euclidean Algorithm: finding integers x, y such that ax + by = gcd(a,b), by tracking coefficients through the Euclidean algorithm's division steps.",
+  examTip:"Solutions to ax+by=gcd(a,b) are never unique — the marker is checking that your equation holds exactly, not matching a single 'correct' pair, so don't worry if your x,y look different from a worked solution."
+});
+
+Q.push({
+  id:"inverse_exists", topic:"numtheory", marks:1, type:"mcq",
+  lecture:"Lesson 7.2.3 (Modular inverses)",
+  gen:function(){ return genInverseExists(); },
+  build:function(v){
+    this._v=v;
+    const opts = shuffle([
+      {text:`Yes — a multiplicative inverse of ${v.a} mod ${v.b} always exists.`, correct:false},
+      {text:`Yes, because $\\gcd(${v.a},${v.b})=1$.`, correct: v.exists},
+      {text:`No, because $\\gcd(${v.a},${v.b})=${v.g}\\ne 1$.`, correct: !v.exists},
+      {text:`Cannot be determined without running the algorithm further.`, correct:false}
+    ]);
+    return { prompt:`Given $a=${v.a}$, $b=${v.b}$, with $\\gcd(${v.a},${v.b})=${v.g}$. Does a multiplicative inverse of $${v.a}$ modulo $${v.b}$ exist?`, options:opts };
+  },
+  hint:"A multiplicative inverse of a mod b exists if and only if gcd(a,b) = 1.",
+  explainCorrect:function(v){ return `<p>A multiplicative inverse of $a$ modulo $b$ exists <strong>iff $\\gcd(a,b)=1$</strong>. Here $\\gcd(${v.a},${v.b})=${v.g}$, so an inverse ${v.exists?"does":"does not"} exist.</p>`; },
+  explainWrong:function(v){ return `<p><strong>Rule:</strong> a mod-$b$ multiplicative inverse of $a$ exists exactly when $\\gcd(a,b)=1$. Here $\\gcd(${v.a},${v.b})=${v.g}$, which is ${v.g===1?"1, so an inverse exists":"not 1, so no inverse exists"}.</p>`; },
+  concept:"Existence of modular multiplicative inverses is governed entirely by gcd(a,b) = 1 (coprimality) — this connects directly to the Extended Euclidean Algorithm.",
+  examTip:"Always compute gcd(a,b) first when asked about a modular inverse — if it isn't 1, don't waste time trying to find the inverse, because none exists."
+});
+
+function bayesQuestion(id, marks, lecture, storyBuilder){
+  return {
+    id, topic:"prob", marks, type:"numeric2", lecture,
+    gen:function(){ return genBayes(); },
+    build:function(v){
+      this._v=v;
+      const s = storyBuilder(v);
+      return { prompt:s.prompt, answerA:v.pT, answerB:v.pSgivenT };
+    },
+    hint:"Part (a): Law of Total Probability. Part (b): Bayes' Theorem, using your part (a) answer as the denominator.",
+    explainCorrect:function(v){
+      return `<p><strong>(a)</strong> By the Law of Total Probability: $\\Pr(T)=\\Pr(T\\mid S)\\Pr(S)+\\Pr(T\\mid S')\\Pr(S') = (${v.sens})(${v.pS})+(${v.fpr})(${1-v.pS}) = ${v.pT}$.</p>
+      <p><strong>(b)</strong> By Bayes' Theorem: $\\Pr(S\\mid T)=\\dfrac{\\Pr(T\\mid S)\\Pr(S)}{\\Pr(T)} = \\dfrac{(${v.sens})(${v.pS})}{${v.pT}} = ${v.pSgivenT}$.</p>`;
+    },
+    explainWrong:function(v){
+      return `<p>A common mistake is plugging $\\Pr(T\\mid S)$ into Bayes' Theorem where $\\Pr(S)$ was needed, or forgetting to compute $\\Pr(S')=1-\\Pr(S)$ before using the Law of Total Probability.</p>
+      <p><strong>(a)</strong> $\\Pr(T)=(${v.sens})(${v.pS})+(${v.fpr})(${1-v.pS})=${v.pT}$.</p>
+      <p><strong>(b)</strong> $\\Pr(S\\mid T)=\\dfrac{(${v.sens})(${v.pS})}{${v.pT}}=${v.pSgivenT}$.</p>`;
+    },
+    concept:"The Law of Total Probability to find an overall probability across two branches, then Bayes' Theorem to reverse the conditioning.",
+    examTip:"Always compute part (a), Pr(T), fully first — it becomes the denominator of part (b), so an error there cascades into the final answer."
+  };
+}
+
+Q.push(bayesQuestion("bayes_crypto",9,"Lesson 9.3.1–9.3.2 (Conditional probability, Bayes' Theorem)", function(v){
+  return { prompt:`A cryptographic key generator: $\\Pr(\\text{secure})=${v.pS}$. The test correctly flags $${v.sens*100}\\%$ of secure keys as secure, and incorrectly flags $${v.fpr*100}\\%$ of insecure keys as secure.<br><br>
+  <strong>(a)</strong> What's the probability a random key is classified as secure?<br>
+  <strong>(b)</strong> Given a key is classified as secure, what's the probability it's actually secure?` };
+}));
+Q.push(bayesQuestion("bayes_spam",9,"Lesson 9.3.1–9.3.2 (Conditional probability, Bayes' Theorem)", function(v){
+  return { prompt:`A spam filter: $${v.sens*100}\\%$ of actual spam is correctly flagged as suspicious, $${v.fpr*100}\\%$ of legitimate emails are incorrectly flagged, and $${v.pS*100}\\%$ of all incoming emails are spam.<br><br>
+  <strong>(a)</strong> What's the probability a random email is flagged as suspicious?<br>
+  <strong>(b)</strong> Given an email is flagged, what's the probability it's actually spam?` };
+}));
+Q.push(bayesQuestion("bayes_medical",9,"Lesson 9.3.1–9.3.2 (Conditional probability, Bayes' Theorem)", function(v){
+  return { prompt:`A medical test: sensitivity $${v.sens*100}\\%$ (correctly flags disease), false-positive rate $${v.fpr*100}\\%$, disease prevalence $${v.pS*100}\\%$.<br><br>
+  <strong>(a)</strong> What's the probability a random person tests positive?<br>
+  <strong>(b)</strong> Given a positive test, what's the probability the person actually has the disease?` };
+}));
+
+/* Fixed "source-accurate" first-attempt versions for the three Bayes questions
+   and the a2/a3/a4 originals, so the very first time through matches the
+   supplied practice material exactly. Variants (on retry) use the generator. */
+const SET_MAP = {
+  set_expr:1, set_complement:1, func_compose:1, rel_mod3:1, proof_cases:1, bool_pqr:1,
+  pred_proglang:1, recur_affine:1, committee:1, bookshelf:1, totient:1, eea:1, bayes_crypto:1,
+  func_inverse:2, rel_explicit:2, pred_scientist:2, bool_demorgan:2, recur_geom:2,
+  arith_series:2, perm_tasks:2, license_plate:2, bayes_spam:2, bayes_medical:2, inverse_exists:2
+};
+Q.forEach(q=> q.set = SET_MAP[q.id] || 1);
+const SETS = [
+  {id:1, name:"Set 1", desc:"Sets, functions, proofs, logic, induction, counting & Bayes", count:Q.filter(q=>q.set===1).length},
+  {id:2, name:"Set 2", desc:"Functions, relations, predicate logic, sequences, number theory & probability", count:Q.filter(q=>q.set===2).length}
+];
+
+const FIXED_FIRST = {
+  bayes_crypto: {pS:0.7, sens:0.9, fpr:0.2, pT:0.69, pSgivenT: 21/23},
+  bayes_spam:   {pS:0.25, sens:0.9, fpr:0.08, pT:0.285, pSgivenT: 15/19},
+  bayes_medical:{pS:0.01, sens:0.95, fpr:0.02, pT:0.0293, pSgivenT: 95/293},
+  recur_affine: {c:2,d:1,a1:3,k:1,a2:7,a3:15,a4:31},
+  recur_geom:   {r:3,a1:2,a2:6,a3:18,a4:54},
+  arith_series: {a:7,d:3,n:20,T:710},
+  set_complement: {A:[1,3,5,7,9], B:[2,3,5,7], C:[1,2,5,8,9], ab:[3,5,7], bc:[2,5], ac:[1,5,9], abc:[5], unionSize:7, answer:3},
+  totient: {n:120, f:{2:3,3:1,5:1}, ans:32},
+  eea: {a:42,b:90,g:6},
+  committee: {n:8, correct:56, opts:null},
+  perm_tasks: {n:5, correct:120, opts:null},
+  license_plate: {L:4, base:10, correct:10000, opts:null},
+  inverse_exists: {a:165,b:210,g:15,exists:false}
+};
+
+/* =========================================================
+   STATE / STORAGE
+========================================================= */
+const STORAGE_KEY = "mcd4760_test3_progress_v1";
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return { attempts:[], mistakeIds:{} };
+}
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+let state = loadState();
+
+function recordAttempt(qid, topic, correct){
+  state.attempts.push({qid, topic, correct, ts:Date.now()});
+  if(!correct){ state.mistakeIds[qid] = (state.mistakeIds[qid]||0)+1; }
+  else if(state.mistakeIds[qid] && correct){ /* keep history, don't clear — still worth reviewing */ }
+  saveState();
+}
+
+function topicStats(topicId){
+  const rel = state.attempts.filter(a=>a.topic===topicId);
+  const correct = rel.filter(a=>a.correct).length;
+  return {attempted:rel.length, correct, accuracy: rel.length? Math.round(100*correct/rel.length):null};
+}
+function overallStats(){
+  const attempted = state.attempts.length;
+  const correct = state.attempts.filter(a=>a.correct).length;
+  return {attempted, correct, accuracy: attempted? Math.round(100*correct/attempted):0};
+}
+
+/* =========================================================
+   RENDERING — HOME
+========================================================= */
+function setStats(setId){
+  const ids = new Set(Q.filter(q=>q.set===setId).map(q=>q.id));
+  const rel = state.attempts.filter(a=>ids.has(a.qid));
+  const correct = rel.filter(a=>a.correct).length;
+  return {attempted:rel.length, correct, accuracy: rel.length? Math.round(100*correct/rel.length):null};
+}
+
+function renderHome(){
+  const os = overallStats();
+  document.getElementById('statRow').innerHTML = `
+    <div class="stat"><div class="num">${os.attempted}</div><div class="label">Attempted</div></div>
+    <div class="stat"><div class="num">${os.correct}</div><div class="label">Correct</div></div>
+    <div class="stat"><div class="num">${os.attempted? os.accuracy+'%':'—'}</div><div class="label">Accuracy</div></div>
+  `;
+  const list = document.getElementById('setList');
+  list.innerHTML = SETS.map(s=>{
+    const st = setStats(s.id);
+    const acc = st.accuracy===null? '<span class="empty-note" style="padding:0;">not attempted yet</span>' : `${st.correct}/${st.attempted} · ${st.accuracy}%`;
+    return `<div class="topic-row" data-set="${s.id}" style="cursor:default;">
+      <div class="t-name" style="flex-direction:column; align-items:flex-start; gap:2px;">
+        <strong>${s.name} <span style="font-weight:400;color:var(--text-dim);">— ${s.count} questions</span></strong>
+        <span style="font-size:13px;color:var(--text-dim);">${s.desc}</span>
+        <span style="font-size:13px;color:var(--text-dim);">${acc}</span>
+      </div>
+      <button class="btn small" data-start-set="${s.id}">Start</button>
+    </div>`;
+  }).join('') + `<div class="topic-row" style="cursor:default;">
+      <div class="t-name"><strong>Both Sets <span style="font-weight:400;color:var(--text-dim);">— ${Q.length} questions</span></strong></div>
+      <button class="btn small secondary" data-start-set="all">Start</button>
+    </div>`;
+  list.querySelectorAll('[data-start-set]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const v = btn.getAttribute('data-start-set');
+      startSession(v==='all'? 'all' : parseInt(v));
+    });
+  });
+}
+
+/* =========================================================
+   PRACTICE SESSION
+========================================================= */
+let session = null; // {queue:[qid,...], idx, currentQ (live object), answered, retryActive}
+
+function buildQuestionInstance(baseQ, forceFixed){
+  // returns a live question object with prompt/options/answer resolved
+  const inst = Object.assign({}, baseQ);
+  if(baseQ.gen){
+    let v;
+    if(forceFixed && FIXED_FIRST[baseQ.id]){
+      v = FIXED_FIRST[baseQ.id];
+      if(baseQ.id==="committee"){ v = genCommitteeFixed(v); }
+      if(baseQ.id==="perm_tasks"){ v = genPermTasksFixed(v); }
+      if(baseQ.id==="license_plate"){ v = genLicensePlateFixed(v); }
+    } else {
+      v = baseQ.gen();
+    }
+    const built = baseQ.build.call(inst, v);
+    Object.assign(inst, built);
+    inst._v = v;
+  } else if(baseQ.type==="mcq" && baseQ.variantMcq && !forceFixed && session && session.forceVariant){
+    Object.assign(inst, baseQ.variantMcq());
+  } else if(baseQ.variantOf && !forceFixed && session && session.forceVariant){
+    Object.assign(inst, baseQ.variantOf());
+  }
+  return inst;
+}
+function genCommitteeFixed(v){ const opts=shuffle([{v:v.correct,l:`${v.n}\\times ${v.n-1}`},{v:v.n*v.n,l:`${v.n}^2`},{v:nCr(v.n,2),l:`\\binom{${v.n}}{2}`},{v:Math.pow(2,v.n),l:`2^{${v.n}}`}]); return {n:v.n, correct:v.correct, opts}; }
+function genPermTasksFixed(v){ const opts=shuffle([{v:v.correct,l:`${v.n}!`},{v:Math.pow(v.n,v.n),l:`${v.n}^{${v.n}}`},{v:Math.pow(2,v.n),l:`2^{${v.n}}`},{v:nCr(v.n,2),l:`\\binom{${v.n}}{2}`}]); return {n:v.n, correct:v.correct, opts}; }
+function genLicensePlateFixed(v){ const nPr=factorial(v.base)/factorial(v.base-v.L); const opts=shuffle([{v:v.correct,l:`${v.base}^{${v.L}}`},{v:v.L*v.base,l:`${v.L}\\times ${v.base}`},{v:nPr,l:`${v.base}\\times ${v.base-1}\\times \\cdots \\times ${v.base-v.L+1}`},{v:nCr(v.base+v.L-1,v.L),l:`\\binom{${v.base}+${v.L}-1}{${v.L}}`}]); return {L:v.L, base:v.base, correct:v.correct, opts}; }
+
+function startSession(setId){
+  const pool = setId==='all'? Q.slice() : Q.filter(q=>q.set===setId);
+  if(pool.length===0){ alert("No questions in this set."); return; }
+  session = { queue: shuffle(pool).map(q=>q.id), idx:0, retryActive:false };
+  showView('practice');
+  loadCurrentQuestion(true);
+}
+
+function currentBaseQ(){ return Q.find(q=>q.id===session.queue[session.idx]); }
+
+function loadCurrentQuestion(isFirstAttempt){
+  const base = currentBaseQ();
+  session.forceVariant = !isFirstAttempt;
+  session.live = buildQuestionInstance(base, isFirstAttempt);
+  session.answered = false;
+  session.selectedOptIdx = null;
+  session.selectedIndices = null;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const total = session.queue.length;
+  document.getElementById('progLabel').textContent = `Question ${session.idx+1} of ${total}`;
+  document.getElementById('progFill').style.width = `${Math.round(100*(session.idx)/total)}%`;
+
+  const q = session.live;
+  const topicName = TOPICS.find(t=>t.id===q.topic).name;
+  let html = `<div class="topic-tag">${topicName}</div>`;
+  if(q.marks) html += `<div class="marks-pill">${q.marks} mark${q.marks>1?'s':''}</div>`;
+  html += `<div class="qtext">${q.prompt}</div>`;
+
+  if(q.type==="mcq"){
+    html += `<div id="optsWrap">`;
+    q.options.forEach((opt,i)=>{
+      const inputType = q.multi? 'checkbox':'radio';
+      const checked = q.multi? (session.selectedIndices && session.selectedIndices.has(i)) : (session.selectedOptIdx===i);
+      html += `<div class="opt" data-idx="${i}"><input type="${inputType}" name="mcq" ${checked?'checked':''}><span>${opt.text}</span></div>`;
+    });
+    html += `</div>`;
+  } else if(q.type==="numeric"){
+    if(q.checkPair){
+      html += `<input type="text" id="ansInput" placeholder="e.g. 4, -2">`;
+    } else {
+      html += `<input type="text" id="ansInput" placeholder="Enter your numeric answer">`;
+    }
+  } else if(q.type==="numeric2"){
+    html += `<div class="numinputs">
+      <div class="nf"><label>Part (a)</label><input type="text" id="ansA" placeholder="e.g. 0.69"></div>
+      <div class="nf"><label>Part (b)</label><input type="text" id="ansB" placeholder="e.g. 21/23 or 0.913"></div>
+    </div>`;
+  } else if(q.type==="combo"){
+    html += `<div class="numinputs">
+      <div class="nf"><label>a₂</label><input type="text" id="ansA2"></div>
+      <div class="nf"><label>a₃</label><input type="text" id="ansA3"></div>
+      <div class="nf"><label>a₄</label><input type="text" id="ansA4"></div>
+    </div>
+    <div style="margin-top:14px;"><textarea id="ansProof" placeholder="Write your closed-form guess and induction proof here (self-checked against the model answer below)."></textarea></div>`;
+  } else if(q.type==="selfcheck"){
+    html += `<textarea id="ansSelf" placeholder="Write your working here, then reveal the model answer to self-check."></textarea>`;
+  }
+
+  html += `<div id="hintWrap"></div>`;
+  html += `<div class="qactions">`;
+  if(q.hint) html += `<button class="btn secondary small" id="btnHint">Hint</button>`;
+  if(q.type==="selfcheck"){
+    html += `<button class="btn" id="btnReveal">Reveal Model Answer</button>`;
+  } else if(q.type==="combo"){
+    html += `<button class="btn" id="btnCheckCombo">Check (a) &amp; Reveal (b)</button>`;
+  } else {
+    html += `<button class="btn" id="btnCheck">Check Answer</button>`;
+  }
+  html += `</div>`;
+  html += `<div id="feedbackWrap"></div>`;
+
+  document.getElementById('qcard').innerHTML = html;
+  renderKatex(document.getElementById('qcard'));
+
+  if(q.type==="mcq"){
+    if(q.multi && !session.selectedIndices) session.selectedIndices = new Set();
+    document.querySelectorAll('#optsWrap .opt').forEach(el=>{
+      if(session.selectedIndices && session.selectedIndices.has(parseInt(el.getAttribute('data-idx')))) el.classList.add('selected');
+      el.addEventListener('click', ()=>{
+        if(session.answered) return;
+        const idx = parseInt(el.getAttribute('data-idx'));
+        if(q.multi){
+          if(session.selectedIndices.has(idx)){ session.selectedIndices.delete(idx); el.classList.remove('selected'); el.querySelector('input').checked=false; }
+          else{ session.selectedIndices.add(idx); el.classList.add('selected'); el.querySelector('input').checked=true; }
+        } else {
+          session.selectedOptIdx = idx;
+          document.querySelectorAll('#optsWrap .opt').forEach(o=>o.classList.remove('selected'));
+          el.classList.add('selected');
+          el.querySelector('input').checked = true;
+        }
+      });
+    });
+  }
+  const hintBtn = document.getElementById('btnHint');
+  if(hintBtn) hintBtn.addEventListener('click', ()=>{
+    document.getElementById('hintWrap').innerHTML = `<div class="hintbox">${q.hint}</div>`;
+  });
+  const checkBtn = document.getElementById('btnCheck');
+  if(checkBtn) checkBtn.addEventListener('click', onCheckAnswer);
+  const revealBtn = document.getElementById('btnReveal');
+  if(revealBtn) revealBtn.addEventListener('click', onRevealSelfCheck);
+  const comboBtn = document.getElementById('btnCheckCombo');
+  if(comboBtn) comboBtn.addEventListener('click', onCheckCombo);
+}
+
+function renderKatex(el){
+  if(window.renderMathInElement){
+    renderMathInElement(el, {
+      delimiters:[
+        {left:"$$", right:"$$", display:true},
+        {left:"$", right:"$", display:false}
+      ]
+    });
+  }
+}
+
+function feedbackShell(isCorrect, bodyHtml){
+  return `<div class="feedback">
+    <div class="fb-head ${isCorrect?'ok':'bad'}">${isCorrect? '✓ Correct' : '✕ Incorrect'}</div>
+    ${bodyHtml}
+    <div class="qactions" style="margin-top:18px;">
+      ${!isCorrect? '<button class="btn secondary" id="btnRetrySimilar">Try a Similar Question</button>' : ''}
+      <button class="btn ${isCorrect?'':'secondary'}" id="btnNext">${session.idx+1<session.queue.length? 'Next Question':'Finish'}</button>
+    </div>
+  </div>`;
+}
+
+function wirePostFeedback(){
+  const nextBtn = document.getElementById('btnNext');
+  if(nextBtn) nextBtn.addEventListener('click', advanceQueue);
+  const retryBtn = document.getElementById('btnRetrySimilar');
+  if(retryBtn) retryBtn.addEventListener('click', ()=>{ loadCurrentQuestion(false); });
+}
+
+function onCheckAnswer(){
+  const q = session.live;
+  const base = currentBaseQ();
+  let correct = false, userDisplay = "";
+
+  if(q.type==="mcq"){
+    if(q.multi){
+      if(!session.selectedIndices || session.selectedIndices.size===0){ alert("Select at least one option first."); return; }
+      const correctIdxSet = new Set(q.options.map((o,i)=>o.correct?i:null).filter(i=>i!==null));
+      const pickedSet = session.selectedIndices;
+      correct = pickedSet.size===correctIdxSet.size && [...pickedSet].every(i=>correctIdxSet.has(i));
+      userDisplay = [...pickedSet].sort((a,b)=>a-b).map(i=>q.options[i].text).join("; ");
+      session.answered = true;
+      const correctList = [...correctIdxSet].map(i=>q.options[i].text).join("; ");
+      let body;
+      if(correct){
+        let why = q.explainCorrect;
+        why = (typeof why==="function")? why(q._v): why;
+        body = `<div class="fb-block"><div class="body">${why}</div></div>
+          <div class="fb-block"><h4>Concept Tested</h4><div class="body"><p>${q.concept}</p></div></div>
+          <div class="exam-tip">${q.examTip}</div>`;
+      } else {
+        const missed = [...correctIdxSet].filter(i=>!pickedSet.has(i)).map(i=>q.options[i].text);
+        const extra = [...pickedSet].filter(i=>!correctIdxSet.has(i)).map(i=>q.options[i].text);
+        let diag = "";
+        if(extra.length) diag += `<p>You selected something that doesn't hold: ${extra.map(t=>{
+          const opt = q.options.find(o=>o.text===t); return opt && opt.why? opt.why : t;
+        }).join(" ")}</p>`;
+        if(missed.length) diag += `<p>You missed a property that does hold: ${missed.join("; ")}.</p>`;
+        let why = q.explainCorrect;
+        why = (typeof why==="function")? why(q._v): why;
+        body = `<div class="your-vs-correct">
+            <div class="yc-box you"><div class="lbl">Your answer</div>${userDisplay||'(nothing selected)'}</div>
+            <div class="yc-box correct"><div class="lbl">Correct answer</div>${correctList}</div>
+          </div>
+          <div class="fb-block"><h4>Why your answer is wrong</h4><div class="body">${diag}</div></div>
+          <div class="fb-block"><h4>Step-by-step solution</h4><div class="body">${why}</div></div>
+          <div class="fb-block"><h4>Relevant concept</h4><div class="body"><p>${q.concept}</p><p style="color:var(--text-faint); font-size:12.5px;">${base.lecture}</p></div></div>
+          <div class="exam-tip">${q.examTip}</div>`;
+      }
+      document.getElementById('feedbackWrap').innerHTML = feedbackShell(correct, body);
+    } else {
+    if(session.selectedOptIdx===null){ alert("Select an option first."); return; }
+    const opt = q.options[session.selectedOptIdx];
+    correct = !!opt.correct;
+    userDisplay = opt.text;
+    session.answered = true;
+    let body;
+    if(correct){
+      let why = q.explainCorrect;
+      why = (typeof why==="function")? why(q._v): why;
+      body = `<div class="fb-block"><div class="body">${why}</div></div>
+        <div class="fb-block"><h4>Concept Tested</h4><div class="body"><p>${q.concept}</p></div></div>
+        <div class="exam-tip">${q.examTip}</div>`;
+    } else {
+      const correctOpt = q.options.find(o=>o.correct);
+      const specific = opt.why || "";
+      let wrongExp = q.explainWrong;
+      wrongExp = (typeof wrongExp==="function")? wrongExp(q._v, opt): (wrongExp||"");
+      body = `<div class="your-vs-correct">
+          <div class="yc-box you"><div class="lbl">Your answer</div>${opt.text}</div>
+          <div class="yc-box correct"><div class="lbl">Correct answer</div>${correctOpt.text}</div>
+        </div>
+        <div class="fb-block"><h4>Why your answer is wrong</h4><div class="body"><p>${specific}</p></div></div>
+        <div class="fb-block"><h4>Step-by-step solution</h4><div class="body">${wrongExp}</div></div>
+        <div class="fb-block"><h4>Relevant concept</h4><div class="body"><p>${q.concept}</p><p style="color:var(--text-faint); font-size:12.5px;">${base.lecture}</p></div></div>
+        <div class="exam-tip">${q.examTip}</div>`;
+    }
+    document.getElementById('feedbackWrap').innerHTML = feedbackShell(correct, body);
+    }
+  }
+
+  else if(q.type==="numeric"){
+    const raw = document.getElementById('ansInput').value;
+    if(q.checkPair){
+      const pair = parseIntPair(raw);
+      if(!pair){ alert('Enter two integers separated by a comma, e.g. "4, -2".'); return; }
+      const v = q._v;
+      correct = (v.a*pair[0] + v.b*pair[1]) === v.g;
+      userDisplay = `x=${pair[0]}, y=${pair[1]}`;
+    } else {
+      const val = parseNum(raw);
+      correct = closeEnough(val, q.answer, Math.max(0.01, Math.abs(q.answer)*0.005));
+      userDisplay = raw;
+    }
+    session.answered = true;
+    const v = q._v;
+    let body;
+    if(correct){
+      const why = (typeof q.explainCorrect==="function")? q.explainCorrect(v): q.explainCorrect;
+      body = `<div class="fb-block"><div class="body">${why}</div></div>
+        <div class="fb-block"><h4>Concept Tested</h4><div class="body"><p>${q.concept}</p></div></div>
+        <div class="exam-tip">${q.examTip}</div>`;
+    } else {
+      const correctDisplay = q.checkPair? `any (x, y) with ${q._v.a}x+${q._v.b}y=${q._v.g}` : q.answer;
+      const wrongExp = (typeof q.explainWrong==="function")? q.explainWrong(v): (q.explainWrong||"");
+      body = `<div class="your-vs-correct">
+          <div class="yc-box you"><div class="lbl">Your answer</div>${userDisplay}</div>
+          <div class="yc-box correct"><div class="lbl">Correct answer</div>${correctDisplay}</div>
+        </div>
+        <div class="fb-block"><h4>Why your answer is wrong &amp; step-by-step solution</h4><div class="body">${wrongExp}</div></div>
+        <div class="fb-block"><h4>Relevant concept</h4><div class="body"><p>${q.concept}</p><p style="color:var(--text-faint); font-size:12.5px;">${base.lecture}</p></div></div>
+        <div class="exam-tip">${q.examTip}</div>`;
+    }
+    document.getElementById('feedbackWrap').innerHTML = feedbackShell(correct, body);
+  }
+
+  else if(q.type==="numeric2"){
+    const rawA = document.getElementById('ansA').value, rawB = document.getElementById('ansB').value;
+    const valA = parseNum(rawA), valB = parseNum(rawB);
+    const v = q._v;
+    const okA = closeEnough(valA, v.pT, 0.005);
+    const okB = closeEnough(valB, v.pSgivenT, 0.005);
+    correct = okA && okB;
+    session.answered = true;
+    const why = (typeof q.explainCorrect==="function")? q.explainCorrect(v): q.explainCorrect;
+    const wrongExp = (typeof q.explainWrong==="function")? q.explainWrong(v): (q.explainWrong||"");
+    let body;
+    if(correct){
+      body = `<div class="fb-block"><div class="body">${why}</div></div>
+        <div class="fb-block"><h4>Concept Tested</h4><div class="body"><p>${q.concept}</p></div></div>
+        <div class="exam-tip">${q.examTip}</div>`;
+    } else {
+      body = `<div class="your-vs-correct">
+          <div class="yc-box you"><div class="lbl">Your answer</div>(a) ${rawA||'—'} &nbsp; (b) ${rawB||'—'}</div>
+          <div class="yc-box correct"><div class="lbl">Correct answer</div>(a) ${v.pT} &nbsp; (b) ${(v.pSgivenT).toFixed(4)}</div>
+        </div>
+        <div class="fb-block"><h4>Why your answer is wrong &amp; step-by-step solution</h4><div class="body">${wrongExp}</div></div>
+        <div class="fb-block"><h4>Relevant concept</h4><div class="body"><p>${q.concept}</p><p style="color:var(--text-faint); font-size:12.5px;">${base.lecture}</p></div></div>
+        <div class="exam-tip">${q.examTip}</div>`;
+    }
+    document.getElementById('feedbackWrap').innerHTML = feedbackShell(correct, body);
+  }
+
+  renderKatex(document.getElementById('feedbackWrap'));
+  recordAttempt(base.id, base.topic, correct);
+  wirePostFeedback();
+}
+
+function onCheckCombo(){
+  const q = session.live, base = currentBaseQ();
+  const a2=parseNum(document.getElementById('ansA2').value);
+  const a3=parseNum(document.getElementById('ansA3').value);
+  const a4=parseNum(document.getElementById('ansA4').value);
+  const v = q._v;
+  const correct = closeEnough(a2,v.a2,0.001) && closeEnough(a3,v.a3,0.001) && closeEnough(a4,v.a4,0.001);
+  session.answered = true;
+  const explain = correct? q.explainCorrect(v) : q.explainWrong(v);
+  let body;
+  if(correct){
+    body = `<div class="fb-block"><div class="body">${explain}</div></div>
+      <div class="fb-block"><h4>Concept Tested</h4><div class="body"><p>${q.concept}</p></div></div>
+      <div class="exam-tip">${q.examTip}</div>`;
+  } else {
+    body = `<div class="your-vs-correct">
+        <div class="yc-box you"><div class="lbl">Your part (a)</div>a₂=${document.getElementById('ansA2').value||'—'}, a₃=${document.getElementById('ansA3').value||'—'}, a₄=${document.getElementById('ansA4').value||'—'}</div>
+        <div class="yc-box correct"><div class="lbl">Correct part (a)</div>a₂=${v.a2}, a₃=${v.a3}, a₄=${v.a4}</div>
+      </div>
+      <div class="fb-block"><h4>Why your answer is wrong &amp; full worked solution</h4><div class="body">${explain}</div></div>
+      <div class="fb-block"><h4>Relevant concept</h4><div class="body"><p>${q.concept}</p><p style="color:var(--text-faint); font-size:12.5px;">${base.lecture}</p></div></div>
+      <div class="exam-tip">${q.examTip}</div>`;
+  }
+  document.getElementById('feedbackWrap').innerHTML = feedbackShell(correct, body);
+  renderKatex(document.getElementById('feedbackWrap'));
+  recordAttempt(base.id, base.topic, correct);
+  wirePostFeedback();
+}
+
+function onRevealSelfCheck(){
+  const q = session.live, base = currentBaseQ();
+  const body = `<div class="modelanswer">${q.model}</div>
+    <div class="fb-block" style="margin-top:16px;"><h4>Concept Tested</h4><div class="body"><p>${q.concept}</p><p style="color:var(--text-faint); font-size:12.5px;">${base.lecture}</p></div></div>
+    <div class="exam-tip">${q.examTip}</div>
+    <p style="margin-top:16px; font-size:14.5px; color:var(--text-dim);">Compare this to what you wrote — be honest about whether your reasoning (not just the final line) matched.</p>
+    <div class="selfcheck-buttons">
+      <button class="btn teal small" id="btnSelfOk">I got this right</button>
+      <button class="btn secondary small" id="btnSelfNo">I need more practice</button>
+    </div>`;
+  document.getElementById('feedbackWrap').innerHTML = `<div class="feedback">${body}<div id="afterSelf"></div></div>`;
+  renderKatex(document.getElementById('feedbackWrap'));
+  document.getElementById('btnSelfOk').addEventListener('click', ()=>{
+    recordAttempt(base.id, base.topic, true);
+    document.getElementById('afterSelf').innerHTML = `<div class="qactions" style="margin-top:16px;"><button class="btn" id="btnNext">${session.idx+1<session.queue.length?'Next Question':'Finish'}</button></div>`;
+    document.getElementById('btnNext').addEventListener('click', advanceQueue);
+  });
+  document.getElementById('btnSelfNo').addEventListener('click', ()=>{
+    recordAttempt(base.id, base.topic, false);
+    document.getElementById('afterSelf').innerHTML = `<div class="qactions" style="margin-top:16px;">
+      <button class="btn secondary" id="btnRetrySimilar">Try a Similar Question</button>
+      <button class="btn" id="btnNext">${session.idx+1<session.queue.length?'Next Question':'Finish'}</button>
+    </div>`;
+    document.getElementById('btnNext').addEventListener('click', advanceQueue);
+    document.getElementById('btnRetrySimilar').addEventListener('click', ()=>{ loadCurrentQuestion(false); });
+  });
+}
+
+function advanceQueue(){
+  session.idx++;
+  if(session.idx>=session.queue.length){
+    showView('home');
+    renderHome();
+    return;
+  }
+  loadCurrentQuestion(true);
+}
+
+/* =========================================================
+   REVIEW VIEW
+========================================================= */
+function renderReview(){
+  const ids = Object.keys(state.mistakeIds);
+  const wrap = document.getElementById('reviewList');
+  if(ids.length===0){ wrap.innerHTML = `<p class="empty-note">No mistakes logged yet — nice, or you haven't started practicing.</p>`; return; }
+  wrap.innerHTML = ids.map(id=>{
+    const base = Q.find(q=>q.id===id);
+    if(!base) return '';
+    const count = state.mistakeIds[id];
+    const topicName = TOPICS.find(t=>t.id===base.topic).name;
+    return `<details class="rev-item">
+      <summary><span>${topicName} — ${base.id.replace(/_/g,' ')}</span><span class="miss">missed ${count}×</span></summary>
+      <div class="revbody" data-review-body="${id}"></div>
+    </details>`;
+  }).join('');
+  wrap.querySelectorAll('details').forEach(d=>{
+    d.addEventListener('toggle', function(){
+      if(this.open){
+        const id = this.querySelector('[data-review-body]').getAttribute('data-review-body');
+        const base = Q.find(q=>q.id===id);
+        const bodyEl = this.querySelector('[data-review-body]');
+        let inst = buildQuestionInstance(base, true);
+        let content = `<div class="qtext">${inst.prompt}</div>`;
+        if(base.type==="mcq"){
+          content += inst.options.map(o=>`<div class="opt ${o.correct?'correct':''}">${o.text}</div>`).join('');
+        }
+        if(base.model) content += `<div class="modelanswer" style="margin-top:12px;">${base.model}</div>`;
+        if(base.explainCorrect){
+          const ec = typeof base.explainCorrect==="function"? base.explainCorrect(inst._v): base.explainCorrect;
+          content += `<div class="modelanswer" style="margin-top:12px;">${ec}</div>`;
+        }
+        content += `<div class="fb-block" style="margin-top:12px;"><h4>Concept</h4><div class="body"><p>${base.concept}</p></div></div>`;
+        content += `<div class="exam-tip">${base.examTip}</div>`;
+        content += `<div class="qactions" style="margin-top:14px;"><button class="btn small" data-jump="${id}">Retry This Question</button></div>`;
+        bodyEl.innerHTML = content;
+        renderKatex(bodyEl);
+        bodyEl.querySelector('[data-jump]').addEventListener('click', ()=>{
+          session = { queue:[id], idx:0 };
+          showView('practice');
+          loadCurrentQuestion(true);
+        });
+      }
+    });
+  });
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+function showView(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  const nb = document.querySelector(`.nav-links button[data-nav="${name}"]`);
+  if(nb) nb.classList.add('active');
+}
+
+document.querySelectorAll('.nav-links button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const v = btn.getAttribute('data-nav');
+    showView(v);
+    if(v==='home') renderHome();
+    if(v==='review') renderReview();
+  });
+});
+document.getElementById('btnExit').addEventListener('click', ()=>{ showView('home'); renderHome(); });
+document.getElementById('btnReset').addEventListener('click', ()=>{
+  if(confirm('Reset all saved progress? This cannot be undone.')){
+    state = { attempts:[], mistakeIds:{} };
+    saveState();
+    renderHome();
+  }
+});
+
+renderHome();
+</script>
+</body>
+</html>
