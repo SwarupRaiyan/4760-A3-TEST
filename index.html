@@ -8,6 +8,7 @@
 :root{
   --navy:#1b2a4a; --navy-deep:#101a30; --teal:#0f7a72; --teal-light:#e6f4f2;
   --amber:#c9822a; --amber-light:#fbeedd; --rose:#b3454a; --rose-light:#fbe9ea;
+  --slate:#3a5169; --slate-light:#eaf0f5; --plum:#6a3f5e; --plum-light:#f3e9f0;
   --ink:#1c2333; --ink-soft:#5b6478; --line:#e3e7ee; --paper:#ffffff; --bg:#f4f6fb;
   --radius:16px; --shadow:0 2px 10px rgba(20,30,60,0.06), 0 1px 2px rgba(20,30,60,0.08);
   --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
@@ -55,6 +56,8 @@ header.top .sub{margin-top:10px; font-size:15px; opacity:.85; max-width:520px; p
 .hub-card.a3 .kicker{background:var(--amber-light); color:var(--amber);}
 .hub-card.notes .kicker{background:#eee9f7; color:#5b4b8a;}
 .hub-card.sets .kicker{background:var(--rose-light); color:var(--rose);}
+.hub-card.kawsar .kicker{background:var(--slate-light); color:var(--slate);}
+.hub-card.guide .kicker{background:var(--plum-light); color:var(--plum);}
 .hub-card h2{font-family:var(--serif); font-size:22px; margin:0 0 8px; color:var(--navy);}
 .hub-card p.desc{font-size:14.5px; color:var(--ink-soft); margin:0 0 22px; min-height:44px;}
 .hub-card .enter{
@@ -67,6 +70,8 @@ header.top .sub{margin-top:10px; font-size:15px; opacity:.85; max-width:520px; p
 .hub-card.a3 .stripe{background:var(--amber);}
 .hub-card.notes .stripe{background:#5b4b8a;}
 .hub-card.sets .stripe{background:var(--rose);}
+.hub-card.kawsar .stripe{background:var(--slate);}
+.hub-card.guide .stripe{background:var(--plum);}
 
 .foot-note{
   text-align:center; font-size:12.5px; color:var(--ink-soft); margin-top:8px;
@@ -83,7 +88,7 @@ header.top .sub{margin-top:10px; font-size:15px; opacity:.85; max-width:520px; p
   <header class="top">
     <div class="crumb">MCD4760 · Discrete Mathematics</div>
     <h1>Test 3 Study Hub</h1>
-    <div class="sub">Pick a path below — full mastery practice for Test 3, focused Assignment 3 questions, the master notes, or six brand-new mock question sets.</div>
+    <div class="sub">Pick a path below — full mastery practice for Test 3, focused Assignment 3 questions, the master notes, six mock question sets, Kawsar Sir's mock test, or the full solution guidebook.</div>
   </header>
 
   <div class="section-label">Choose your practice</div>
@@ -118,6 +123,22 @@ header.top .sub{margin-top:10px; font-size:15px; opacity:.85; max-width:520px; p
       <h2>New Practice Question Sets</h2>
       <p class="desc">Six full mock-test style sets covering every topic — Sets, Functions, Relations, Proof, Boolean Algebra, Predicate Logic, Recurrence, Series, Number Theory, Counting, and Probability — with a self-check answer key.</p>
       <span class="enter">Start practicing <span class="arrow">→</span></span>
+    </a>
+
+    <a class="hub-card kawsar" href="kawsar-mock-test.html">
+      <div class="stripe"></div>
+      <span class="kicker">Updated last file</span>
+      <h2>Kawsar Sir's Mock Test</h2>
+      <p class="desc">The full mock test exactly as given — every question with a worked answer, plus a box showing exactly how to type each answer into Safe Exam Browser.</p>
+      <span class="enter">Start practicing <span class="arrow">→</span></span>
+    </a>
+
+    <a class="hub-card guide" href="guidebook.html">
+      <div class="stripe"></div>
+      <span class="kicker">8 sets · 90 questions</span>
+      <h2>Question &amp; Solution Guidebook</h2>
+      <p class="desc">The complete guidebook — Set A, Set B, and Sets 1–6 in one place, with given info, worked solutions, final answers, and Safe Exam Browser typing guidance for every question.</p>
+      <span class="enter">Open guidebook <span class="arrow">→</span></span>
     </a>
   </div>
 
